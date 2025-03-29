@@ -1,0 +1,106 @@
+/* signin.css */
+.signin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212;
+}
+
+.signin-box {
+    background: #1e1e1e;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    width: 500px;
+    text-align: center;
+}
+
+.signin-header {
+    margin-bottom: 30px;
+}
+
+.signin-logo {
+    color: #ff4757;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.signin-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #292929;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.signin-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.forgot-link {
+    color: #ff4757;
+    text-decoration: none;
+}
+
+.signin-btn, .back-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.signin-btn {
+    background-color: #ff4757;
+    color: #ffffff;
+}
+
+.signin-btn:hover {
+    background-color: #e84118;
+    transform: scale(1.05);
+}
+
+.button-spacing-large {
+    margin-top: 20px;
+}
+
+.back-btn {
+    background-color: #ffa502;
+    color: #121212;
+}
+
+.back-btn:hover {
+    background-color: #ffcc00;
+    transform: scale(1.05);
+}
+
+.signin-footer {
+    margin-top: 20px;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.signin-footer a {
+    color: #ff4757;
+    text-decoration: none;
+    font-weight: bold;
+}

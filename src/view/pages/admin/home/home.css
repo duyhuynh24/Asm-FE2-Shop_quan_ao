@@ -1,0 +1,109 @@
+/* home.css */
+.main-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #181818; /* Màu nền đen */
+}
+
+.dashboard-container {
+  margin-left: 250px; /* Để nội dung không bị che khuất bởi sidebar */
+  padding: 30px;
+  color: #fff; /* Chữ màu trắng để nổi bật trên nền đen */
+}
+
+.dashboard-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #e74c3c; /* Màu đỏ cho tiêu đề */
+  margin-bottom: 20px;
+}
+
+/* Thống kê */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background-color: #333; /* Nền xám tối cho thẻ thống kê */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-icon {
+  font-size: 40px;
+  color: #e74c3c; /* Màu đỏ cho biểu tượng */
+  margin-bottom: 10px;
+}
+
+.stat-info p {
+  font-size: 14px;
+  color: #bbb; /* Màu chữ sáng để dễ đọc */
+}
+
+.stat-info h6 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff; /* Chữ trắng trên nền tối */
+}
+
+/* Giao dịch gần đây */
+.recent-sales {
+  background-color: #333; /* Nền xám tối cho phần giao dịch */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e74c3c; /* Màu đỏ cho tiêu đề */
+  margin-bottom: 20px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 10px 15px;
+  border: 1px solid #555; /* Viền tối để tương phản với nền */
+  text-align: left;
+}
+
+.dashboard-table th {
+  background-color: #222; /* Nền tối cho tiêu đề bảng */
+  color: #fff; /* Chữ trắng */
+}
+
+.dashboard-table td {
+  background-color: #333; /* Nền xám tối cho các ô dữ liệu */
+  color: #fff; /* Chữ trắng */
+}
+
+.status-paid {
+  color: #28a745; /* Màu xanh cho trạng thái đã thanh toán */
+  font-weight: 600;
+}
+
+.btn-detail {
+  text-decoration: none;
+  color: #e74c3c; /* Màu đỏ cho nút chi tiết */
+  font-weight: 600;
+}
+
+.btn-detail:hover {
+  color: #c0392b; /* Đổi sang màu đỏ đậm khi hover */
+}

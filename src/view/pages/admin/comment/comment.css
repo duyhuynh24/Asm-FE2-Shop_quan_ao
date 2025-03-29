@@ -1,0 +1,107 @@
+/* ===== Định dạng Sidebar ===== */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background-color: #222;
+    padding-top: 20px;
+    z-index: 1000;
+}
+
+/* ===== Định dạng chung cho container bình luận ===== */
+.comment-container {
+    margin-left: 250px; /* Đẩy nội dung ra khỏi sidebar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 250px); /* Đảm bảo nội dung không bị đè bởi sidebar */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* ===== Định dạng khung bình luận ===== */
+.comment-wrapper {
+    width: 100%;
+    max-width: 1600px; /* Giới hạn kích thước hiển thị */
+}
+
+/* ===== Hộp chứa bảng ===== */
+.comment-box {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.6);
+    text-align: center;
+}
+
+/* ===== Tiêu đề ===== */
+.comment-title {
+    color: #ff4040;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* ===== Định dạng bảng bình luận ===== */
+.comment-table {
+    width: 100%;
+    max-width: 1500px;
+    border-collapse: collapse;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ===== Tiêu đề bảng ===== */
+.comment-table th {
+    background-color: #ff4040;
+    color: white;
+    padding: 16px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+/* ===== Dữ liệu trong bảng ===== */
+.comment-table td {
+    background-color: #222;
+    color: #fff;
+    padding: 16px;
+    font-size: 18px;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+/* ===== Hiệu ứng hover ===== */
+.comment-table tr:hover {
+    background-color: rgba(255, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+/* ===== Nút hành động ===== */
+.edit-btn, .delete-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.edit-btn {
+    background-color: orange;
+    color: white;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: darkorange;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}

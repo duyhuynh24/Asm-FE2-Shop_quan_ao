@@ -1,0 +1,99 @@
+/* Giao diện chung */
+.edit-category-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #121212;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.content {
+    width: 95%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Card chứa form */
+.edit-category-card {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.7);
+    margin-top: 30px;
+    width: 50%;
+    transform: translateX(50px); /* Dịch qua phải */
+    color: white;
+}
+
+.edit-category-card h2 {
+    color: #ff4d4d;
+    font-size: 28px;
+    text-align: center;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+}
+
+.form-group textarea {
+    height: 100px;
+}
+
+/* Nút */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.save-btn,
+.cancel-btn {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.save-btn {
+    background-color: #ffcc00;
+    color: black;
+}
+
+.save-btn:hover {
+    background-color: #e6b800;
+}
+
+.cancel-btn {
+    background-color: #ff3300;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #cc2900;
+}

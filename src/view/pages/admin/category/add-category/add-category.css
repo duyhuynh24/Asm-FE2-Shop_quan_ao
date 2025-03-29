@@ -1,0 +1,140 @@
+/* ===== Định dạng container chính ===== */
+.category-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #111;
+    padding-left: 15%;
+}
+
+/* ===== Nội dung chính ===== */
+.category-content {
+    width: 100%;
+    max-width: 600px;
+    background: #222;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    position: relative;
+}
+
+/* ===== Tiêu đề và nút quay lại ===== */
+.category-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.category-title h2 {
+    font-size: 22px;
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* ===== Form ===== */
+.category-input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ===== Các ô input ===== */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 15px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: #444;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    border-color: #ff4d4d;
+    box-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
+}
+
+/* ===== Ô mô tả lớn hơn ===== */
+.input-group textarea {
+    resize: none;
+    height: 120px;
+}
+
+/* ===== Nút lưu và hủy ===== */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-button {
+    background: #ffcc00;
+    color: black;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 45%;
+    text-decoration: none;
+}
+
+.save-button:hover {
+    background: #e6b800;
+}
+
+.cancel-button {
+    background: #ff3300;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 45%;
+    text-decoration: none;
+}
+
+.cancel-button:hover {
+    background: #cc2900;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .category-content {
+        max-width: 90%;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .save-button, .cancel-button {
+        width: 100%;
+    }
+}

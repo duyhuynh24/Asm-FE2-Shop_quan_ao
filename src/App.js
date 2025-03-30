@@ -5,6 +5,8 @@ import "./assets/styles/global.css"
 import Shop from "./pages/Client/Shop/Shop";
 import ContactPage from "./pages/Client/Contact/Contact";
 import ProfilePage from "./pages/Client/Profile/Profile";
+import Login from "./pages/Client/Login/login";
+import Register from "./pages/Client/Register/register";
 
 function App() {
   return (
@@ -14,8 +16,13 @@ function App() {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="contact" element={<ContactPage />} />
-          <Route path="profile" element={<ProfilePage/>} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
+
+
+
       </Routes>
     </BrowserRouter>
   );

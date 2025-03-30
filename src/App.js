@@ -44,7 +44,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
         </Route>
         {/* Route 404 nếu nhập sai đường dẫn */}
-        <Route path="*" element={<h2>404 - Trang không tồn tại</h2>} />
+        <Route path="*" element={<h2>Trang không tồn tại</h2>} />
       </Routes>
     </BrowserRouter>
   );

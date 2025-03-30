@@ -37,7 +37,7 @@ const AddProduct = () => {
                     
                     <div className="add-product-actions">
                         <button type="submit" className="btn-add-product">Thêm</button>
-                        <Link to="/product" className="btn-cancel-product">Hủy</Link>
+                        <Link to="/admin" className="btn-cancel-product">Hủy</Link>
                     </div>
                 </form>
             </div>

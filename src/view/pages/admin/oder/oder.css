@@ -9,21 +9,21 @@
     align-items: flex-start;
     padding-top: 50px;
     height: 100vh;
-    background-color: #121212;
+    background-color: #ffffff;
     margin-left: 250px;
 }
 
 .order-box {
-    background: #1e1e1e;
+    background: #f0f0f0;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
     width: 80%;
     text-align: center;
 }
 
 .order-title {
-    color: #ff4757;
+    color: #8a2be2;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
@@ -32,8 +32,8 @@
 .order-table {
     width: 100%;
     border-collapse: collapse;
-    background: #292929;
-    color: white;
+    background: #e6e6fa;
+    color: black;
 }
 
 .order-table th, .order-table td {
@@ -43,7 +43,8 @@
 }
 
 .order-table th {
-    background-color: #ff4757;
+    background-color: #8a2be2;
+    color: white;
 }
 
 .badge {
@@ -53,10 +54,10 @@
 }
 
 .badge-success {
-    background-color: #28a745;
+    background-color: #7b68ee;
 }
 
 .badge-warning {
-    background-color: #ffc107;
+    background-color: #dda0dd;
     color: black;
 }

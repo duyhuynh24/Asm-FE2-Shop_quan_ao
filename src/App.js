@@ -13,7 +13,7 @@ import SignUp from "./view/pages/admin/signup/signup";
 import EditCategory from "./view/pages/admin/category/edit-category/edit-category";
 import AddCategory from "./view/pages/admin/category/add-category/add-category";
 import AddProduct from "./view/pages/admin/product/add-product/add-product";
-
+import EditProduct from "./view/pages/admin/product/edit-product/edit-product";
 // Layout chung cho Admin
 function AdminLayout() {
   return (
@@ -33,6 +33,7 @@ function App() {
           <Route index element={<Home />} /> {/* Trang mặc định /admin */}
           <Route path="product" element={<Product />} />
           <Route path="AddProduct" element={<AddProduct />} />
+          <Route path="EditProduct/:id" element={<EditProduct />} />
           <Route path="categories" element={<Category />} />
           <Route path="EditCategory" element={<EditCategory />} />
           <Route path="AddCategory" element={<AddCategory />} />

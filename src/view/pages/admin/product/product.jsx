@@ -31,7 +31,7 @@ const Product = () => {
                                     <td>350,000đ</td>
                                     <td>Chất vải nỉ bông, co giãn</td>
                                     <td className="product-action-buttons">
-                                        <Link to="/edit-product/2" className="btn-edit-product">Sửa</Link>
+                                        <Link to="/admin/EditProduct/:id" className="btn-edit-product">Sửa</Link>
                                         <button className="btn-delete-product">Xóa</button>
                                     </td>
 
@@ -43,7 +43,7 @@ const Product = () => {
                                     <td>420,000đ</td>
                                     <td>Vải denim cao cấp</td>
                                     <td className="product-action-buttons">
-                                        <Link to="/edit-product/2" className="btn-edit-product">Sửa</Link>
+                                        <Link to="/admin/EditProduct/:id" className="btn-edit-product">Sửa</Link>
                                         <button className="btn-delete-product">Xóa</button>
                                     </td>
 

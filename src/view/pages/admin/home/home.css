@@ -3,19 +3,19 @@
   display: flex;
   height: 100vh;
   flex-direction: column;
-  background-color: #181818; /* Màu nền đen */
+  background-color: #f8f9fa; /* Màu nền trắng */
 }
 
 .dashboard-container {
-  margin-left: 250px; /* Để nội dung không bị che khuất bởi sidebar */
+  margin-left: 250px;
   padding: 30px;
-  color: #fff; /* Chữ màu trắng để nổi bật trên nền đen */
+  color: #4b0082; /* Chữ màu tím đậm để nổi bật trên nền trắng */
 }
 
 .dashboard-title {
   font-size: 32px;
   font-weight: 700;
-  color: #e74c3c; /* Màu đỏ cho tiêu đề */
+  color: #800080; /* Màu tím cho tiêu đề */
   margin-bottom: 20px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .stat-card {
-  background-color: #333; /* Nền xám tối cho thẻ thống kê */
+  background-color: #e6e6fa; /* Nền tím nhạt cho thẻ thống kê */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -37,24 +37,24 @@
 
 .stat-icon {
   font-size: 40px;
-  color: #e74c3c; /* Màu đỏ cho biểu tượng */
+  color: #800080; /* Màu tím cho biểu tượng */
   margin-bottom: 10px;
 }
 
 .stat-info p {
   font-size: 14px;
-  color: #bbb; /* Màu chữ sáng để dễ đọc */
+  color: #4b0082; /* Màu chữ tím đậm để dễ đọc */
 }
 
 .stat-info h6 {
   font-size: 24px;
   font-weight: 600;
-  color: #fff; /* Chữ trắng trên nền tối */
+  color: #4b0082; /* Chữ tím đậm trên nền nhạt */
 }
 
 /* Giao dịch gần đây */
 .recent-sales {
-  background-color: #333; /* Nền xám tối cho phần giao dịch */
+  background-color: #e6e6fa; /* Nền tím nhạt cho phần giao dịch */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -63,7 +63,7 @@
 .section-title {
   font-size: 18px;
   font-weight: 600;
-  color: #e74c3c; /* Màu đỏ cho tiêu đề */
+  color: #800080; /* Màu tím cho tiêu đề */
   margin-bottom: 20px;
 }
 
@@ -79,31 +79,31 @@
 .dashboard-table th,
 .dashboard-table td {
   padding: 10px 15px;
-  border: 1px solid #555; /* Viền tối để tương phản với nền */
+  border: 1px solid #d8bfd8; /* Viền tím nhạt để tương phản với nền */
   text-align: left;
 }
 
 .dashboard-table th {
-  background-color: #222; /* Nền tối cho tiêu đề bảng */
-  color: #fff; /* Chữ trắng */
+  background-color: #dda0dd; /* Nền tím nhạt cho tiêu đề bảng */
+  color: #4b0082; /* Chữ tím đậm */
 }
 
 .dashboard-table td {
-  background-color: #333; /* Nền xám tối cho các ô dữ liệu */
-  color: #fff; /* Chữ trắng */
+  background-color: #e6e6fa; /* Nền tím nhạt cho các ô dữ liệu */
+  color: #4b0082; /* Chữ tím đậm */
 }
 
 .status-paid {
-  color: #28a745; /* Màu xanh cho trạng thái đã thanh toán */
+  color: #6a5acd; /* Màu tím xanh cho trạng thái đã thanh toán */
   font-weight: 600;
 }
 
 .btn-detail {
   text-decoration: none;
-  color: #e74c3c; /* Màu đỏ cho nút chi tiết */
+  color: #800080; /* Màu tím cho nút chi tiết */
   font-weight: 600;
 }
 
 .btn-detail:hover {
-  color: #c0392b; /* Đổi sang màu đỏ đậm khi hover */
+  color: #4b0082; /* Đổi sang màu tím đậm khi hover */
 }

@@ -29,7 +29,7 @@
 }
 
 /* Nội dung trên banner */
-.home-banner-content {
+.home-content {
     text-align: center;
     color: white;
     background: rgba(0, 0, 0, 0.5); /* Nền mờ cho nội dung nổi bật */
@@ -38,13 +38,14 @@
     max-width: 80%;
 }
 
-.home-banner-content h1 {
+.home-content h1 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.home-banner-content p {
+.home-content p {
+    color: aliceblue;
     font-size: 1.2rem;
     margin-bottom: 15px;
 }
@@ -56,7 +57,7 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #ff4081;
+    background-color: #6A0DAD;
     border-radius: 5px;
     text-decoration: none;
     transition: 0.3s ease-in-out;
@@ -65,18 +66,22 @@
 
 /* Dấu chấm điều hướng chỉ dành cho banner */
 .home-banner-slider .slick-dots {
-    bottom: 15px;
+    bottom: 20px;
 }
 
 .home-banner-slider .slick-dots li button:before {
     font-size: 14px;
-    color: white; /* Màu mặc định */
+    color: rgb(166, 125, 248); /* Màu mặc định */
     opacity: 0.7;
     transition: color 0.3s ease-in-out;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    background-color: #f9f8fb;
+    border-radius: 50%;
 }
 
 .home-banner-slider .slick-dots li.slick-active button:before {
     opacity: 1;
+    color: #6A0DAD;
 }
 
 
@@ -86,11 +91,11 @@
         height: 400px;
     }
 
-    .home-banner-content h1 {
+    .home-content h1 {
         font-size: 2rem;
     }
 
-    .home-banner-content p {
+    .home-content p {
         font-size: 1rem;
     }
 
@@ -105,15 +110,15 @@
         height: 350px;
     }
 
-    .home-banner-content {
+    .home-content {
         padding: 15px 20px;
     }
 
-    .home-banner-content h1 {
+    .home-content h1 {
         font-size: 1.8rem;
     }
 
-    .home-banner-content p {
+    .home-content p {
         font-size: 0.9rem;
     }
 }
@@ -123,11 +128,11 @@
         height: 280px;
     }
 
-    .home-banner-content h1 {
+    .home-content h1 {
         font-size: 1.5rem;
     }
 
-    .home-banner-content p {
+    .home-content p {
         font-size: 0.8rem;
     }
 

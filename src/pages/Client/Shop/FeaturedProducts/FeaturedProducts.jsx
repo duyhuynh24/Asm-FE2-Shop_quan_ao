@@ -12,7 +12,7 @@ const FeaturedProducts = () => {
     }
 
     const products = [
-        { id: 1, name: "Áo Hoodie Local Brand", price: 350000, oldPrice: 450000, category: "best-seller", badge: "🔥 Best Seller", badgeClass: "best-seller", img: require("../../../../assets/img/aothun.webp") , img: require("../../../../assets/img/aothun.webp") },
+        { id: 1, name: "Áo Hoodie Local Brand", price: 350000, oldPrice: 450000, category: "best-seller", badge: "🔥 Best Seller", badgeClass: "best-seller", img: require("../../../../assets/img/aothun.webp")},
         { id: 2, name: "Áo Thun Oversize", price: 250000, category: "best-seller", badge: "🔥 Best Seller", badgeClass: "best-seller", img: require("../../../../assets/img/aothun.webp")  },
         { id: 3, name: "Quần Jogger", price: 400000, category: "best-seller", badge: "🔥 Best Seller", badgeClass: "best-seller", img: require("../../../../assets/img/aothun.webp")  },
         { id: 4, name: "Áo Polo Local Brand", price: 380000, category: "best-seller", badge: "🔥 Best Seller", badgeClass: "best-seller", img: require("../../../../assets/img/aothun.webp")  },

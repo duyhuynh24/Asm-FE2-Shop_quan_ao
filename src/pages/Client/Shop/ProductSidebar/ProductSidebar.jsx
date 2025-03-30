@@ -49,112 +49,112 @@ const ProductSidebar = () => {
                         <img src="https://via.placeholder.com/150" alt="Product 1" />
                         <h4>Áo Thun Nam</h4>
                         <p className="price">250K <span className="old-price">300K</span></p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 2" />
                         <h4>Quần Jeans</h4>
                         <p className="price">450K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
 
                     <div className="product">
                         <img src="https://via.placeholder.com/150" alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button>Thêm vào giỏ</button>
+                        <button className="button">Thêm vào giỏ</button>
                     </div>
                 </div>
             </main>

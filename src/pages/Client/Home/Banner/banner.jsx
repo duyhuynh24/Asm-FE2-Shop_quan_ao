@@ -31,7 +31,7 @@ const BannerSlider = () => {
                     return (
                         <div key={banner.id} className="home-banner-slide">
                             <div className="home-banner" style={{ backgroundImage: `url(${banner.img})` }}>
-                                <div className="home-banner-content">
+                                <div className="home-content">
                                     <h1>{banner.title}</h1>
                                     <p>{banner.desc}</p>
                                     <Link to="/shop" className="btn-shop">Mua Ngay</Link>

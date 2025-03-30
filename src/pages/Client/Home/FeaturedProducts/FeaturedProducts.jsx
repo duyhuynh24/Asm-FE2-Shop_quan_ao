@@ -17,41 +17,21 @@ const FeaturedProducts = () => {
 
     // Cấu hình slider
     const settings = {
-        dots: true, // Hiển thị dấu chấm điều hướng
-        infinite: true, // Lặp vô hạn
-        speed: 1000, // Tốc độ trượt (1s)
-        slidesToShow: 4, // Hiển thị 4 sản phẩm/lượt
-        slidesToScroll: 1, // Trượt từng sản phẩm một
-        autoplay: true, // Tự động trượt
-        autoplaySpeed: 2000, // Thời gian giữa mỗi lần trượt (2s)
-        pauseOnHover: true, // Dừng khi hover
-        swipe: true, // Vuốt trên mobile
-        responsive: [
-            {
-                breakpoint: 1024, // Màn hình nhỏ hơn 1024px
-                settings: {
-                    slidesToShow: 3
-                }
-            },
-            {
-                breakpoint: 768, // Màn hình nhỏ hơn 768px
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 480, // Màn hình nhỏ hơn 480px
-                settings: {
-                    slidesToShow: 1
-                }
-            }
-        ]
+        dots: true,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        pauseOnHover: true,
+        swipe: true
     };
 
     return (
         <section className="featured-products">
             <h2>Sản Phẩm Nổi Bật</h2>
-            <Slider {...settings}>
+            <Slider {...settings} className="featured-products">
                 {products.map((product) => (
                     <Link to={`/product/${product.id}`} key={product.id} className="product-card">
                         <img src={product.image} alt={product.name} />

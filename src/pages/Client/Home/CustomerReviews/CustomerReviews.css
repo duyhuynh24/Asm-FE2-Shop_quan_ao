@@ -1,12 +1,12 @@
 .reviews-container {
     text-align: center;
-    padding: 60px 20px;
+    padding: 20px;
 }
 
 .reviews-container h2 {
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #333;
     position: relative;
     display: inline-block;
@@ -14,7 +14,7 @@
 
 .reviews-container h2::after {
     content: "";
-    width: 50px;
+    width: 50%;
     height: 4px;
     background: #6a0dad;
     position: absolute;
@@ -25,18 +25,20 @@
 }
 
 .review-card {
+    max-width: 98%;
     background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     border: 1px solid #ddd;
+    margin: 30px auto;
 }
 
 .review-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .customer-img {

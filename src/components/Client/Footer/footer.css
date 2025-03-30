@@ -26,6 +26,12 @@
     margin-bottom: 10px;
 }
 
+.footer-column p {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
 /* Danh sách liên kết */
 .footer-column ul {
     list-style: none;

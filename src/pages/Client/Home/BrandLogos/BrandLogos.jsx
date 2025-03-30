@@ -32,7 +32,7 @@ const BrandLogos = () => {
     return (
         <section className="brand-container">
             <h2>Thương Hiệu / Đối Tác</h2>
-            <Slider {...settings}>
+            <Slider {...settings} className="brand">
                 {brandLogos.map((brand) => (
                     <div key={brand.id} className="brand-logo">
                         <img src={brand.img} alt={brand.alt} />

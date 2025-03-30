@@ -1,13 +1,28 @@
 .blog-container {
     text-align: center;
     padding: 50px 20px;
-    background: #f9f9f9;
 }
 
 .blog-container h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+    display: inline-block;
 }
+
+.blog-container h2::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 4px;
+    background-color: var(--primary-color); /* Màu gạch */
+    margin: 8px auto 0; /* Khoảng cách với chữ */
+    border-radius: 2px;
+}
+
+
 
 .blog-grid {
     display: grid;
@@ -20,11 +35,14 @@
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .blog-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .blog-card img {
@@ -50,7 +68,7 @@
 
 .btn-read-more {
     display: inline-block;
-    background: #6A5ACD;
+    background: var(--primary-color);
     color: #fff;
     padding: 10px 15px;
     border-radius: 5px;

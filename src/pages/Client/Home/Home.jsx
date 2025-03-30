@@ -7,28 +7,27 @@ import CustomerReviews from "./CustomerReviews/CustomerReviews";
 import BlogList from "./BlogList/BlogList";
 import "../../../assets/styles/home.css";
 import BrandLogos from "./BrandLogos/BrandLogos";
-import ShopHeroSection from "../Shop/ShopHeroSection/ShopHeroSection";
 
 const Home = () => {
 
     return (
         <>
-            <ShopHeroSection />
+            <BannerSlider />
+            <main className="container">
+                <CategorySection />
 
-            <CategorySection />
+                <FeaturedProducts />
 
-            <FeaturedProducts />
+                <Trends />
 
-            <Trends />
+                <DealsSlider />
 
-            <DealsSlider />
+                <CustomerReviews />
 
-            <CustomerReviews />
+                <BlogList />
 
-            <BlogList />
-
-            <BrandLogos />
-
+                <BrandLogos />
+            </main>
         </>
     );
 };

@@ -1,13 +1,27 @@
 .trends-section {
     text-align: center;
     padding: 40px;
-    background: #f9f9f9;
 }
 
 .trends-section h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
     color: #333;
+    position: relative;
+    display: inline-block;
+}
+
+.trends-section h2::after {
+    content: "";
+    width: 50%;
+    height: 4px;
+    background: #6a0dad;
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 .trend-card {
@@ -58,4 +72,21 @@
 
 .btn-explore:hover {
     background: #6a1bbd;
+}
+
+/* 🎯 Tùy chỉnh Dots của Slick */
+.trends .slick-dots {
+    bottom: -30px;
+}
+
+.trends .slick-dots li button:before {
+    font-size: 12px;
+    color: #6a0dad;
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+}
+
+.trends .slick-dots li.slick-active button:before {
+    opacity: 1;
+    transform: scale(1.3);
 }

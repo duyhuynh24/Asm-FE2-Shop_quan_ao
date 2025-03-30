@@ -7,8 +7,6 @@
     max-width: 1600px;
     margin: 0 auto;
     overflow: hidden;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -81,6 +79,7 @@
 
 /* Mô tả */
 .banner-content p {
+    color: #fff;
     font-size: 1.2rem;
     font-weight: 300;
     margin-bottom: 15px;

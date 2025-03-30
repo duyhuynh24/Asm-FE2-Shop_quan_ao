@@ -62,7 +62,7 @@ const Trends = () => {
     return (
         <section className="trends-section">
             <h2>🔥 Xu Hướng Thời Trang 2025 🔥</h2>
-            <Slider {...settings}>
+            <Slider {...settings} className="trends">
                 {trends.map((trend) => (
                     <div key={trend.id} className="trend-card">
                         <img src={trend.img} alt={trend.title} />

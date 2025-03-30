@@ -59,7 +59,8 @@ function Cart() {
     };
 
     return (
-        <div className="cart-container">
+       <main className="Container">
+         <div className="cart-container">
             <div className="cart-main">
                 <h2 className="cart-title">Giỏ hàng của bạn</h2>
                 <table className="cart-table">
@@ -152,6 +153,8 @@ function Cart() {
                 </button>
             </div>
         </div>
+
+       </main>
     );
 }
 

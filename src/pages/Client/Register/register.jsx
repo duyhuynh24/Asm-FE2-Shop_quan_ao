@@ -26,7 +26,8 @@ const Register = () => {
     };
 
     return (
-        <div className="register-container">
+       <main className="container">
+         <div className="register-container">
             <div className="register-box">
                 <h2>Đăng Ký</h2>
                 {error && <p className="error-message">{error}</p>}
@@ -65,6 +66,7 @@ const Register = () => {
                 </p>
             </div>
         </div>
+       </main>
     );
 };
 

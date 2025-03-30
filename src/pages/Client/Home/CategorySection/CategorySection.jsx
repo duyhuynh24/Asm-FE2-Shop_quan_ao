@@ -6,31 +6,31 @@ import kidsImage from "../../../../assets/img/tre em.webp";
 
 const CategorySection = () => {
     return (
-        <section className="categories">
-        <h2>Danh Mục Sản Phẩm</h2>
-        <div className="category-list">
-            <Link to="/shop?category=men" className="category-item">
-                <div className="category-card">
-                    <img src={menImage} alt="Thời trang Nam" />
-                    <h3>THỜI TRANG NAM</h3>
-                </div>
-            </Link>
+        <section className="home-categories">
+            <h2>Danh Mục Sản Phẩm</h2>
+            <div className="categories-list">
+                <Link to="/shop?categories=men" className="categories-item">
+                    <div className="categories-card">
+                        <img src={menImage} alt="Thời trang Nam" />
+                        <h3>THỜI TRANG NAM</h3>
+                    </div>
+                </Link>
 
-            <Link to="/shop?category=women" className="category-item">
-                <div className="category-card">
-                    <img src={womenImage} alt="Thời trang Nữ" />
-                    <h3>THỜI TRANG NỮ</h3>
-                </div>
-            </Link>
+                <Link to="/shop?categories=women" className="categories-item">
+                    <div className="categories-card">
+                        <img src={womenImage} alt="Thời trang Nữ" />
+                        <h3>THỜI TRANG NỮ</h3>
+                    </div>
+                </Link>
 
-            <Link to="/shop?category=kids" className="category-item">
-                <div className="category-card">
-                    <img src={kidsImage} alt="Thời trang Trẻ Em" />
-                    <h3>THỜI TRANG TRẺ EM</h3>
-                </div>
-            </Link>
-        </div>
-    </section>
+                <Link to="/shop?categories=kids" className="categories-item">
+                    <div className="categories-card">
+                        <img src={kidsImage} alt="Thời trang Trẻ Em" />
+                        <h3>THỜI TRANG TRẺ EM</h3>
+                    </div>
+                </Link>
+            </div>
+        </section>
     )
 }
 

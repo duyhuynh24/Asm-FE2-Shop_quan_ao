@@ -12,7 +12,7 @@ import ProductDetail from "./pages/Client/ProductDetail/ProductDetail";
 import { Outlet } from "react-router";
 
 // Import các trang
-import Home from "./view/pages/admin/home/home";
+import Dashboard from "./view/pages/admin/home/home";
 import Product from "./view/pages/admin/product/product";
 import Category from "./view/pages/admin/category/category";
 import Order from "./view/pages/admin/oder/oder";
@@ -50,7 +50,7 @@ function App() {
         </Route>
         {/* Admin Layout */}
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Home />} /> {/* Trang mặc định /admin */}
+          <Route index element={<Dashboard />} /> {/* Trang mặc định /admin */}
           <Route path="product" element={<Product />} />
           <Route path="AddProduct" element={<AddProduct />} />
           <Route path="EditProduct/:id" element={<EditProduct />} />

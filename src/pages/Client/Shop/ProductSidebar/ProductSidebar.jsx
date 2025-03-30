@@ -1,11 +1,11 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import "./ProductSidebar.css";
 
 const ProductSidebar = () => {
     return (
         <div className="container-sidebar">
             {/* Sidebar - Bộ Lọc */}
-            <aside className="sidebar">
+            <aside className="shop-sidebar">
                 <h3>Bộ Lọc</h3>
 
                 {/* Loại sản phẩm */}
@@ -46,115 +46,59 @@ const ProductSidebar = () => {
                 <h3>Danh Sách Sản Phẩm</h3>
                 <div className="products">
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 1" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 1" />
                         <h4>Áo Thun Nam</h4>
                         <p className="price">250K <span className="old-price">300K</span></p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 2" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 2" />
                         <h4>Quần Jeans</h4>
                         <p className="price">450K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
 
                     <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
+                        <img src={require('../../../../assets/img/aothun.webp')} alt="Product 3" />
                         <h4>Giày Sneakers</h4>
                         <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
-                    </div>
-
-                    <div className="product">
-                        <img src="https://via.placeholder.com/150" alt="Product 3" />
-                        <h4>Giày Sneakers</h4>
-                        <p className="price">1.200K</p>
-                        <button className="button">Thêm vào giỏ</button>
+                        <Link to="/product"><button className="button">Mua Ngay</button></Link>
                     </div>
                 </div>
             </main>

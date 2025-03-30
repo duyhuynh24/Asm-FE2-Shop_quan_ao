@@ -1,5 +1,5 @@
 /* Reset CSS */
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,9 +9,9 @@
 body {
     background-color: #121212;
     color: #ffffff;
-}
+} */
 
-.sidebar {
+.admin-sidebar {
     width: 220px;
     height: 100vh;
     background-color: #181818;
@@ -19,29 +19,29 @@ body {
     position: fixed;
 }
 
-.sidebar .navbar-brand {
+.admin-sidebar .navbar-brand {
     font-size: 1.5rem;
     color: #ff4757;
     text-align: center;
 }
 
-.sidebar .nav-link {
+.admin-sidebar .nav-link {
     color: #ffffff;
     padding: 10px;
     margin: 5px 0;
     transition: 0.3s;
 }
 
-.sidebar .nav-link:hover {
+.admin-sidebar .nav-link:hover {
     background-color: #d8acea;
     border-radius: 5px;
     color: #121212;
 }
-
-.container {
+/* 
+.admin-container {
     margin-left: 240px;
     padding: 20px;
-}
+} */
 
 h2 {
     color: #ff4757;

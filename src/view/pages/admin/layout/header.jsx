@@ -6,7 +6,7 @@ import "./layout.css";
 
 const HeaderAdmin = () => {
   return (
-    <div className="sidebar bg-dark text-white p-3 vh-100">
+    <div className="admin-sidebar bg-dark text-white p-3 vh-100">
       <Link to="/admin" className="navbar-brand text-white fw-bold mb-3 d-block text-center">
         <h1 className="fa fa-user-edit me-2 "></h1>ADMIN
       </Link>

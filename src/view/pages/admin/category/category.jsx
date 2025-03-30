@@ -1,12 +1,14 @@
-    import { Link } from 'react-router-dom';
-    import HeaderAdmin from "../layout/header";
-    import "./category.css";
+import { Link } from 'react-router-dom';
+import HeaderAdmin from "../layout/header";
+import "./category.css";
 
-    const Category = () => {
-        return (
+const Category = () => {
+    return (
+        <>
+
+            <HeaderAdmin />
             <div className="category-container">
                 <div className="content">
-                    <HeaderAdmin />
 
                     <div className="category-card">
                         <div className="category-header">
@@ -52,7 +54,9 @@
                     </div>
                 </div>
             </div>
-        );
-    }
+        </>
 
-    export default Category;
+    );
+}
+
+export default Category;

@@ -24,6 +24,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
+        {/* Route 404 nếu nhập sai đường dẫn */}
+        <Route path="*" element={<h2>Trang không tồn tại</h2>} />
       </Routes>
     </BrowserRouter>
   );

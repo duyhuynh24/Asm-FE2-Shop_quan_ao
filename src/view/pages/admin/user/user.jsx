@@ -36,9 +36,6 @@ const users = [
                     <td>{user.email}</td>
                     <td>{user.address}</td>
                     <td>
-                      <button className="edit-btn">
-                        <i className="fas fa-edit"></i> Sửa
-                      </button>
                       <button className="delete-btn">
                         <i className="fas fa-trash-alt"></i> Xóa
                       </button>

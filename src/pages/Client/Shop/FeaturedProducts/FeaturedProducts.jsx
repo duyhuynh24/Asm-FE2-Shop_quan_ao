@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Constants from "../../../../Constants";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./FeaturedProducts.css";
@@ -9,77 +12,79 @@ const FeaturedProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3001/product/list")
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function (data) {
-                const formatted = (data.data || []).map(function (product) {
-                    return {
-                        id: product.id,
-                        name: product.name,
-                        price: parseFloat(product.sale_price),
-                        oldPrice: parseFloat(product.price),
-                        img: product.image,
-                        createdAt: product.createdAt,
-                        featured: product.featured,
-                        sale_price: parseFloat(product.sale_price),
-                        badge: "",
-                        badgeClass: ""
-                    };
-                });
-                setAllProducts(formatted);
-            })
-            .catch(function (err) {
-                console.error("Lỗi khi lấy sản phẩm:", err);
-            });
+        getProducts();
     }, []);
 
-    function getFilteredProducts() {
-        return allProducts.filter(function (product) {
-            const createdDate = new Date(product.createdAt);
-            const now = new Date();
-            const diffInDays = (now - createdDate) / (1000 * 60 * 60 * 24);
+    const getProducts = async () => {
+        try {
+            const res = await axios.get(`${Constants.DOAMIN_API}/product/list`);
+            const formatted = (res.data.data || []).map(function (product) {
+                return {
+                    id: product.id,
+                    name: product.name,
+                    price: parseFloat(product.sale_price) > 0 ? parseFloat(product.sale_price) : parseFloat(product.price),
+                    oldPrice: parseFloat(product.sale_price) > 0 ? parseFloat(product.price) : null,
+                    img: product.image,
+                    createdAt: product.createdAt,
+                    featured: product.featured,
+                    sale_price: parseFloat(product.sale_price),
+                    badge: "",
+                    badgeClass: ""
+                };
+            });
+            setAllProducts(formatted);
+        } catch (err) {
+            console.error("Lỗi khi lấy sản phẩm:", err);
+        }
+    };
 
-            if (activeCategory === "new-arrival") {
-                return diffInDays <= 14;
-            }
+    const getFilteredProducts = () => {
+        return allProducts
+            .filter(function (product) {
+                const createdDate = new Date(product.createdAt);
+                const now = new Date();
+                const diffInDays = (now - createdDate) / (1000 * 60 * 60 * 24);
 
-            if (activeCategory === "flash-sale") {
-                return product.sale_price > 0 && product.sale_price < product.oldPrice;
-            }
+                if (activeCategory === "new-arrival") {
+                    return diffInDays <= 14;
+                }
 
-            return (
-                product.featured === "featured" &&
-                diffInDays <= 14 &&
-                product.sale_price > 0
-            );
-        }).map(function (product) {
-            let badge = "";
-            let badgeClass = "";
+                if (activeCategory === "flash-sale") {
+                    return product.sale_price > 0 && product.sale_price < product.oldPrice;
+                }
 
-            if (activeCategory === "new-arrival") {
-                badge = "🆕 Mới";
-                badgeClass = "new";
-            } else if (activeCategory === "flash-sale") {
-                badge = "⚡ Sale";
-                badgeClass = "sale";
-            } else {
-                badge = "🔥 Nổi Bật";
-                badgeClass = "featured";
-            }
+                return (
+                    product.featured === "featured" &&
+                    diffInDays <= 14 &&
+                    product.sale_price > 0
+                );
+            })
+            .map(function (product) {
+                let badge = "";
+                let badgeClass = "";
 
-            return {
-                ...product,
-                badge: badge,
-                badgeClass: badgeClass
-            };
-        });
-    }
+                if (activeCategory === "new-arrival") {
+                    badge = "🆕 Mới";
+                    badgeClass = "new";
+                } else if (activeCategory === "flash-sale") {
+                    badge = "⚡ Sale";
+                    badgeClass = "sale";
+                } else {
+                    badge = "🔥 Nổi Bật";
+                    badgeClass = "featured";
+                }
 
-    function changeCategory(category) {
+                return {
+                    ...product,
+                    badge: badge,
+                    badgeClass: badgeClass
+                };
+            });
+    };
+
+    const changeCategory = (category) => {
         setActiveCategory(category);
-    }
+    };
 
     const settings = {
         dots: false,
@@ -136,12 +141,13 @@ const FeaturedProducts = () => {
                                 {product.price.toLocaleString()} VNĐ
                                 {product.oldPrice && (
                                     <span className="old-price">
-                                        {" "}
                                         {product.oldPrice.toLocaleString()} VNĐ
                                     </span>
                                 )}
                             </p>
-                            <button>Mua Ngay</button>
+                            <Link to={`/product/${product.id}`}>
+                                <button className="button">Mua Ngay</button>
+                            </Link>
                         </div>
                     );
                 })}

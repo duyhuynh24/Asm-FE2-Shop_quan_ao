@@ -138,3 +138,32 @@ button {
 button:hover {
     background: #5a0bac;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center; /* căn giữa ngang */
+    align-items: center;      /* căn giữa dọc nếu cần */
+    gap: 8px;                 /* khoảng cách giữa các nút */
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 6px 12px;
+    color: #6a0dad;
+    border: 1px solid #6a0dad;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination button.active {
+    background-color: #6a0dad;
+    color: white;
+    font-weight: bold;
+    border-color: #6a0dad;
+}

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
@@ -5,15 +6,24 @@ import "slick-carousel/slick/slick-theme.css";
 import "./FeaturedProducts.css";
 
 const FeaturedProducts = () => {
+    const [products, setProducts] = useState([]);
 
-    const products = [
-        { id: 1, name: "Áo Thun Unisex", price: "299.000đ", image: require('../../../../assets/img/aothun.webp') },
-        { id: 2, name: "Quần Jean Nam", price: "499.000đ", image: require('../../../../assets/img/quanjean.webp') },
-        { id: 3, name: "Váy Nữ Thanh Lịch", price: "599.000đ", image: require('../../../../assets/img/vaynuthoitrang.webp') },
-        { id: 4, name: "Giày Sneaker Nam", price: "799.000đ", image: require('../../../../assets/img/giaysneaker.webp') },
-        { id: 5, name: "Túi Xách Cao Cấp", price: "999.000đ", image: require('../../../../assets/img/tuixach.webp') },
-        { id: 6, name: "Mắt Kính Thời Trang", price: "699.000đ", image: require('../../../../assets/img/matkinh.webp') }
-    ];
+    useEffect(() => {
+        fetch("http://localhost:3001/product/list")
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (data) {
+                console.log("Dữ liệu từ API:", data); // thêm dòng này để debug
+                const featured = data.data.filter(function (product) {
+                    return product.featured === "featured";
+                });
+                setProducts(featured);
+            })
+            .catch(function (err) {
+                console.error("Lỗi khi tải sản phẩm nổi bật:", err);
+            });
+    }, []);
 
     // Cấu hình slider
     const settings = {
@@ -31,15 +41,21 @@ const FeaturedProducts = () => {
     return (
         <section className="featured-products">
             <h2>Sản Phẩm Nổi Bật</h2>
-            <Slider {...settings} className="featured-products">
-                {products.map((product) => (
-                    <Link to={`/product/${product.id}`} key={product.id} className="product-card">
-                        <img src={product.image} alt={product.name} />
-                        <h3>{product.name}</h3>
-                        <p>{product.price}</p>
-                    </Link>
-                ))}
-            </Slider>
+            {products.length > 0 ? (
+                <Slider {...settings} className="featured-products">
+                    {products.map(function (product) {
+                        return (
+                            <Link to={`/product/${product.id}`} key={product.id} className="product-card">
+                                <img src={product.image} alt={product.name} />
+                                <h3>{product.name}</h3>
+                                <p className="price">{parseInt(product.price).toLocaleString()}đ</p>
+                            </Link>
+                        );
+                    })}
+                </Slider>
+            ) : (
+                <p>Không có sản phẩm nổi bật.</p>
+            )}
         </section>
     );
 };

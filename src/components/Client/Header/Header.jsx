@@ -1,64 +1,48 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
-import { useAuth } from "../../../contexts/AuthContext";
 import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import logo from "../../../assets/img/logo.webp";
 import "./header.css";
 
 const Header = () => {
-  const { user: contextUser, isAuthenticated, logout } = useAuth();
-  const [user, setUser] = useState(contextUser);
-  const [isAuth, setIsAuth] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Đồng bộ user từ localStorage và context khi đường dẫn thay đổi hoặc component mount
+  const [cookies, setCookie, removeCookie] = useCookies(["token", "role"]);
+  const [user, setUser] = useState(null);
+  const [isAuth, setIsAuth] = useState(false);
+
+  // Cập nhật khi location thay đổi (VD sau login)
   useEffect(() => {
-    // Force kiểm tra xác thực và lấy dữ liệu mới nhất
-    const checkAuthAndUpdateUser = () => {
-      try {
-        // Kiểm tra token
-        const token = localStorage.getItem('token');
-        const storedUser = localStorage.getItem('user');
-        
-        // Kiểm tra xác thực
-        const authenticated = !!token && !!storedUser;
-        setIsAuth(authenticated);
-        
-        if (authenticated && storedUser) {
-          try {
-            const userData = JSON.parse(storedUser);
-            console.log('Header updated with user:', userData.name);
-            setUser(userData);
-          } catch (error) {
-            console.error('Failed to parse user data:', error);
-          }
-        } else {
-          console.log('No valid auth data found in Header');
-          setUser(null);
-        }
-      } catch (error) {
-        console.error('Error in Header auth check:', error);
-        setIsAuth(false);
-      }
-    };
+    const token = cookies.token;
+    const storedUser = localStorage.getItem("user");
 
-    // Kiểm tra mỗi khi location hoặc contextUser thay đổi
-    checkAuthAndUpdateUser();
-  }, [location, contextUser]);
+    if (token && storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setIsAuth(true);
+      } catch (error) {
+        console.error("Lỗi parse user:", error);
+        setIsAuth(false);
+        setUser(null);
+      }
+    } else {
+      setIsAuth(false);
+      setUser(null);
+    }
+  }, [location, cookies.token]);
 
   const handleLogout = () => {
-    console.log('Logging out...');
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    console.log('Token and user removed from localStorage');
-    
-    setUser(null);
-    navigate('/login');
-  };
+    removeCookie("token");
+    removeCookie("role");
+    localStorage.removeItem("user");
 
-  // Debug
-  console.log('Header render, authenticated:', isAuth, 'user:', user?.name);
+    setUser(null);
+    setIsAuth(false);
+    navigate("/login");
+  };
 
   return (
     <header className="header">
@@ -87,26 +71,31 @@ const Header = () => {
 
         {/* Hành động người dùng */}
         <div className="user-actions">
-          {/* Giỏ hàng - kiểm tra đăng nhập */}
-          {isAuth ? (
-            <Link to="/cart" className="cart">
-              <FaShoppingCart />
-              <span className="cart-count">3</span>
-            </Link>
-          ) : (
-            <Link to="/login" className="cart" onClick={(e) => {
-              e.preventDefault();
-              navigate('/login', { state: { from: '/cart', message: 'Vui lòng đăng nhập để xem giỏ hàng' } });
-            }}>
-              <FaShoppingCart />
-              <span className="cart-count">3</span>
-            </Link>
-          )}
+          <Link
+            to={isAuth ? "/cart" : "#"}
+            className="cart"
+            onClick={(e) => {
+              if (!isAuth) {
+                e.preventDefault();
+                navigate("/login", {
+                  state: { from: "/cart", message: "Vui lòng đăng nhập để xem giỏ hàng" },
+                });
+              }
+            }}
+          >
+            <FaShoppingCart />
+            <span className="cart-count">3</span>
+          </Link>
 
-          {isAuth ? (
+          {isAuth && user ? (
             <div className="user-menu">
               <button className="user-btn">
-                <FaUser /> {user?.name || 'Tài khoản'}
+                <img
+                  src={user?.avatar ||  require("../../../assets/img/user-4.jpg")}
+                  alt="avatar"
+                  className="user-avatar"
+                />
+                {user?.name || "Tài khoản"}
               </button>
               <ul className="dropdown-menu">
                 <li><Link to="/profile">Thông tin</Link></li>

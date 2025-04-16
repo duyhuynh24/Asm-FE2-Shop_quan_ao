@@ -10,8 +10,9 @@ import Register from "./pages/Client/Register/register";
 import Cart from "./pages/Client/Cart/cart";
 import ProductDetail from "./pages/Client/ProductDetail/ProductDetail";
 import { Outlet } from "react-router";
-import Payment from"./pages/Client/Payment/Payment"
-import ShippingAddressManager from"./pages/Client/ShippingAddress.Manager/ShippingAddressManager"
+import Payment from "./pages/Client/Payment/Payment"
+import ShippingAddressManager from "./pages/Client/ShippingAddress.Manager/ShippingAddressManager"
+import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 
 // Import các trang
 import Dashboard from "./view/pages/admin/home/home";
@@ -53,12 +54,14 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="payment" element={<Payment />} /> {/* Định nghĩa route cho /delivery */}
-          <Route path="shipping-address-manager" element={<ShippingAddressManager/>} />
-  
-     
+          <Route path="shipping-address-manager" element={<ShippingAddressManager />} />
         </Route>
         {/* Admin Layout */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={
+          <AdminProtectedRoute>
+            <AdminLayout />
+          </AdminProtectedRoute>
+        }>
           <Route index element={<Dashboard />} /> {/* Trang mặc định /admin */}
           <Route path="product" element={<Product />} />
           <Route path="AddProduct" element={<AddProduct />} />

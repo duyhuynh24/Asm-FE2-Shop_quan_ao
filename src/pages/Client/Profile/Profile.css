@@ -1,7 +1,7 @@
 .profile-container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 20px;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
 .profile-container h2 {
@@ -26,89 +26,128 @@
     border-radius: 2px;
 }
 
-.profile-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    gap: 20px;
-}
-
-.profile-left {
-    flex: 2;
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
     text-align: center;
 }
 
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.profile-left {
+    flex: 0 0 200px;
+}
+
 .profile-avatar {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    border: 3px solid #ddd;
+    object-fit: cover;
 }
 
 .profile-right {
-    flex: 3;
+    flex: 1;
 }
 
 .profile-name {
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
 }
 
 .profile-email {
-    color: gray;
-    margin-bottom: 10px;
+    color: #666;
+    margin-bottom: 1.5rem;
 }
 
 .profile-field {
-    margin-top: 10px;
+    margin-bottom: 1rem;
 }
 
 .profile-field label {
-    font-weight: bold;
     display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
 }
 
 .profile-field input {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+    padding: 0.5rem;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
 .profile-footer {
-    margin-top: 20px;
+    margin-top: 2rem;
     display: flex;
-    gap: 10px;
+    gap: 1rem;
 }
 
-.profile-footer .btn {
-    padding: 10px 15px;
-    background: #007bff;
-    color: white;
+.btn {
+    padding: 0.5rem 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
 }
 
-.profile-footer .btn:hover {
-    background: #0056b3;
+.btn .icon {
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
-.profile-footer .logout-btn {
-    background: #dc3545;
+.save-btn {
+    background-color: #28a745;
+    color: white;
 }
 
-.profile-footer .logout-btn:hover {
-    background: #b02a37;
+.save-btn:hover {
+    background-color: #218838;
 }
 
-.profile-footer .icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
 }

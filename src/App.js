@@ -10,6 +10,8 @@ import Register from "./pages/Client/Register/register";
 import Cart from "./pages/Client/Cart/cart";
 import ProductDetail from "./pages/Client/ProductDetail/ProductDetail";
 import { Outlet } from "react-router";
+import Payment from"./pages/Client/Payment/Payment"
+import ShippingAddressManager from"./pages/Client/ShippingAddress.Manager/ShippingAddressManager"
 
 // Import các trang
 import Dashboard from "./view/pages/admin/home/home";
@@ -50,6 +52,8 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="payment" element={<Payment />} /> {/* Định nghĩa route cho /delivery */}
+          <Route path="shipping-address-manager" element={<ShippingAddressManager/>} />
   
      
         </Route>

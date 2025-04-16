@@ -24,6 +24,9 @@ import EditCategory from "./view/pages/admin/category/edit-category/edit-categor
 import AddCategory from "./view/pages/admin/category/add-category/add-category";
 import AddProduct from "./view/pages/admin/product/add-product/add-product";
 import EditProduct from "./view/pages/admin/product/edit-product/edit-product";
+
+
+
 // Layout chung cho Admin
 function AdminLayout() {
   return (
@@ -47,6 +50,8 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+  
+     
         </Route>
         {/* Admin Layout */}
         <Route path="/admin" element={<AdminLayout />}>

@@ -148,11 +148,7 @@ function Cart() {
                     <input type="text" placeholder="Nhập mã giảm giá" className="discount-input" />
                     <button className="apply-discount-button">Áp dụng</button>
                 </div>
-                <button className="cart-checkout-button" disabled={!selectedItems.length}>
-                    Xác nhận giỏ hàng
-                </button>
             </div>
-        </div>
 
        </main>
     );

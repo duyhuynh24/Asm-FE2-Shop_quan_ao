@@ -26,6 +26,9 @@ import EditCategory from "./view/pages/admin/category/edit-category/edit-categor
 import AddCategory from "./view/pages/admin/category/add-category/add-category";
 import AddProduct from "./view/pages/admin/product/add-product/add-product";
 import EditProduct from "./view/pages/admin/product/edit-product/edit-product";
+
+
+
 // Layout chung cho Admin
 function AdminLayout() {
   return (

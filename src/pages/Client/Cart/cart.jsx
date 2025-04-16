@@ -153,11 +153,7 @@ function Cart() {
                         <Link to="/payment" className="text-decoration-none text-white">Thanh toán</Link>
                     </button>
                 </div>
-                <button className="cart-checkout-button" disabled={!selectedItems.length}>
-                    Xác nhận giỏ hàng
-                </button>
             </div>
-        </div>
 
         </main>
     );

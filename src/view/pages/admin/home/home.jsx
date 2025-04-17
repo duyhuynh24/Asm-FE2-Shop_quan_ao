@@ -1,22 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 import "./home.css";
 import HeaderAdmin from "../layout/header";
+import constant from "../../../../Constants";
 
 const Dashboard = () => {
+  const [orderCount, setOrderCount] = useState(0);
+  const [productCount, setProductCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [cookies] = useCookies([constant.COOKIE_TOKEN]);
+
+  useEffect(() => {
+    const token = cookies[constant.COOKIE_TOKEN];
+    if (!token) {
+      console.error("Token không tồn tại trong cookie.");
+      return;
+    }
+
+    const fetchCount = async (endpoint, setStateFn, label) => {
+      try {
+        const response = await axios.get(`${constant.DOMAIN_API}${endpoint}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setStateFn(response.data.count);
+      } catch (error) {
+        console.error(`Lỗi khi lấy ${label}:`, error);
+      }
+    };
+
+    fetchCount("/order/count", setOrderCount, "số lượng đơn hàng");
+    fetchCount("/product/count", setProductCount, "số lượng sản phẩm");
+    fetchCount("/review/count", setCommentCount, "số lượng bình luận");
+    fetchCount("/user/count", setUserCount, "số lượng người dùng");
+  }, [cookies]);
+
   return (
     <div className="main-container">
       <HeaderAdmin />
       <div className="dashboard-container">
         <h2 className="dashboard-title">Bảng Điều Khiển</h2>
-        
-        {/* Sale & Revenue Section */}
+
         <div className="stats-container">
           {[
-            { icon: "fa-chart-line", label: "Doanh Thu Hôm Nay", value: "$1234" },
-            { icon: "fa-chart-bar", label: "Tổng Doanh Thu", value: "$5678" },
-            { icon: "fa-chart-area", label: "Doanh Thu Ngày", value: "$910" },
-            { icon: "fa-chart-pie", label: "Tổng Doanh Thu", value: "$1112" }
+            { icon: "fa-box", label: "Số Lượng Đơn Hàng", value: orderCount },
+            { icon: "fa-cogs", label: "Số Lượng Sản Phẩm", value: productCount },
+            { icon: "fa-comments", label: "Số Lượng Bình Luận", value: commentCount },
+            { icon: "fa-users", label: "Số Lượng Người Dùng", value: userCount },
           ].map((stat, index) => (
             <div key={index} className="stat-card">
               <i className={`fa ${stat.icon} stat-icon`}></i>
@@ -28,7 +62,6 @@ const Dashboard = () => {
           ))}
         </div>
 
-        {/* Recent Sales */}
         <div className="recent-sales">
           <h6 className="section-title">Giao Dịch Gần Đây</h6>
           <div className="table-responsive">
@@ -51,7 +84,11 @@ const Dashboard = () => {
                     <td>John Doe</td>
                     <td>$123</td>
                     <td className="status-paid">Đã Thanh Toán</td>
-                    <td><Link to="#" className="btn-detail">Chi Tiết</Link></td>
+                    <td>
+                      <Link to="#" className="btn-detail">
+                        Chi Tiết
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>

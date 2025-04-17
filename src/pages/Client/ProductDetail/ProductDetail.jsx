@@ -23,11 +23,15 @@ const ProductDetail = () => {
     ]);
 
     useEffect(() => {
-        axios.get(`${Constants.DOAMIN_API}/product/${id}`)
-            .then(function (res) { setProduct(res.data.data); })
-            .catch(function (err) { console.error("❌ Lỗi tải sản phẩm:", err); });
+        axios.get(`${Constants.DOMAIN_API}/product/${id}`)
+            .then(function (res) {
+                setProduct(res.data.data);
+            })
+            .catch(function (err) {
+                console.error("❌ Lỗi tải sản phẩm:", err);
+            });
 
-        axios.get(`${Constants.DOAMIN_API}/variant/${id}`)
+        axios.get(`${Constants.DOMAIN_API}/variant/${id}`)
             .then(function (res) {
                 const list = Array.isArray(res.data.data) ? res.data.data : [];
                 setVariants(list);
@@ -63,6 +67,18 @@ const ProductDetail = () => {
             alert("❗ Số lượng không hợp lệ!");
             return;
         }
+        axios.post(`${Constants.DOMAIN_API}/cart/add`, {
+            variant_id: selectedVariant.id,
+            quantity: quantity
+        })
+            .then(function () {
+                alert("✅ Đã thêm vào giỏ hàng!");
+            })
+            .catch(function (err) {
+                console.error("❌ Lỗi thêm giỏ hàng:", err);
+                alert("Không thể thêm vào giỏ hàng.");
+            });
+    }
 
         const storedUser = localStorage.getItem("user");
         if (!storedUser) {

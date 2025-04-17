@@ -18,7 +18,7 @@ function CategorySection() {
     const navigate = useNavigate();
 
     useEffect(function () {
-        axios.get(Constants.DOAMIN_API + "/target-group/list")
+        axios.get(Constants.DOMAIN_API + "/target-group/list")
             .then(function (res) {
                 setTargetGroups(res.data.data || []);
             })

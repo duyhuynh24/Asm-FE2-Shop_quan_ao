@@ -1,7 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import HeaderAdmin from "../../layout/header";
 import "./add-category.css";
+import constant from '../../../../../Constants.jsx';
+
+
+
 
 const AddCategory = () => {
     const {
@@ -10,8 +16,26 @@ const AddCategory = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log("Dữ liệu form:", data);
+    const navigate = useNavigate();
+
+    const onSubmit = async (data) => {
+        try {
+            const token = Cookies.get(constant.COOKIE_TOKEN); // Lấy token từ cookie
+            const response = await axios.post(
+                `${constant.DOMAIN_API}/category/add`,
+                data,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            alert("Thêm danh mục thành công!");
+            navigate("/admin/categories"); // Điều hướng về trang danh sách danh mục
+        } catch (error) {
+            console.error("Lỗi khi thêm danh mục:", error);
+            alert("Có lỗi xảy ra khi thêm danh mục");
+        }
     };
 
     return (
@@ -36,26 +60,20 @@ const AddCategory = () => {
                             </div>
 
                             <div className="input-group">
-                                <label htmlFor="description">Mô tả</label>
-                                <textarea
-                                    id="description"
-                                    {...register("description", { required: "Mô tả là bắt buộc" })}
-                                />
-                                {errors.description && <p className="error">{errors.description.message}</p>}
-                            </div>
-
-                            <div className="input-group">
                                 <label htmlFor="status">Trạng thái</label>
-                                <select id="status" {...register("status", { required: "Vui lòng chọn trạng thái" })}>
+                                <select
+                                    id="status"
+                                    {...register("status", { required: "Vui lòng chọn trạng thái" })}
+                                >
                                     <option value="">-- Chọn trạng thái --</option>
                                     <option value="active">Đang kinh doanh</option>
-                                    <option value="inactive">Ngừng kinh doanh</option>
+                                    <option value="inactive">Ngừng kinh doanh</option> {/* Thêm lựa chọn này */}
                                 </select>
                                 {errors.status && <p className="error">{errors.status.message}</p>}
                             </div>
 
+
                             <div className="action-buttons">
-                                
                                 <button type="submit" className="save-button text-center">
                                     Lưu
                                 </button>

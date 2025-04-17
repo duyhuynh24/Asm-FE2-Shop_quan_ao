@@ -1,216 +1,90 @@
-.main-container {
-    display: flex;
-}
-
-.product-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 50px;
-    height: 100vh;
-    background-color: #ffffff;
-    margin-left: 250px;
-}
-
-.product-box {
-    background: #f0f0f0;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
-    width: 80%;
-    text-align: center;
-}
-
-.product-title {
-    color: #8a2be2;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.product-actions {
-    text-align: right;
-    margin-bottom: 20px;
-}
-
-.btn-add {
-    background-color: #ff4757;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.btn-add:hover {
-    background-color: #e84118;
-    transform: scale(1.05);
-}
-
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #e6e6fa;
-    color: black;
-}
-
-.product-table th, .product-table td {
-    padding: 15px;
-    border: 1px solid #444;
-    text-align: center;
-}
-
-.product-table th {
-    background-color: #8a2be2;
-    color: white;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: center;
-}
-
-.btn-edit, .btn-delete {
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn-edit {
-    background-color: #ffa502;
-}
-
-.btn-edit:hover {
-    background-color: #ffcc00;
-}
-
-.btn-delete {
-    background-color: #e84118;
-}
-
-.product-action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-}
-
-.btn-edit-product {
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    background-color: #ffa502;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-edit-product:hover {
-    background-color: #ffcc00;
-}
-
-.btn-delete-product {
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    background-color: #e84118;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-delete-product:hover {
-    background-color: #ff4757;
-}
-
-/* Edit Product Styles */
 .edit-product-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #ffffff;
-}
-
-.edit-product-card {
-    background: #f0f0f0;
-    padding: 60px;
+    padding: 32px;
+    background: #f8f8f8;
+  }
+  
+  .edit-product-card {
+    background: #f1f1f1;
+    padding: 24px 32px;
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-    width: 700px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.edit-product-title {
-    color: #8a2be2;
-    font-size: 32px;
-    margin-bottom: 30px;
-}
-
-.edit-product-form {
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 0 20px rgba(170, 102, 255, 0.3);
+    max-width: 600px;
     width: 100%;
-}
-
-.edit-product-form label {
-    color: #000000;
+  }
+  
+  .edit-product-title {
+    text-align: center;
     font-size: 22px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.edit-product-form input,
-.edit-product-form textarea {
-    background: #e6e6fa;
-    color: #000;
-    border: 2px solid #8a2be2;
-    padding: 16px;
-    border-radius: 10px;
+    font-weight: bold;
+    color: #9b40f8;
     margin-bottom: 20px;
-    width: calc(100% - 20px);
-    font-size: 20px;
-}
-
-.edit-product-form textarea {
-    min-height: 140px;
-}
-
-.edit-product-actions {
+  }
+  
+  .edit-product-form .form-group {
+    margin-bottom: 12px; /* Giảm từ 20px xuống 12px */
+  }
+  
+  .edit-product-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px; /* Giảm từ 8px xuống 5px */
+    font-size: 14px;
+  }
+  
+  .edit-product-form input[type="text"],
+  .edit-product-form input[type="number"],
+  .edit-product-form input[type="file"],
+  .edit-product-form select,
+  .edit-product-form textarea {
+    width: 100%;
+    padding: 8px 12px; /* Nhỏ hơn */
+    background-color: #eae6fe;
+    border: 1px solid #9b40f8;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .edit-product-form textarea {
+    min-height: 80px; /* giảm chiều cao mặc định */
+    resize: vertical;
+  }
+  
+  .edit-product-actions {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.btn-save-product,
-.btn-cancel-product {
-    padding: 16px 24px;
+    margin-top: 24px; /* giảm khoảng cách nút với input */
+  }
+  
+  .btn-save-product {
+    background-color: #ff4b5c;
+    color: white;
+    padding: 8px 20px;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 20px;
-    text-decoration: none;
-    text-align: center;
-    width: 48%;
-}
-
-.btn-save-product {
-    background: #ff4d4d;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  
+  .btn-save-product:hover {
+    background-color: #e33b4c;
+  }
+  
+  .btn-cancel-product {
+    background-color: #4a4a4a;
     color: white;
-}
-
-.btn-cancel-product {
-    background: #555;
-    color: white;
-}
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  
+  .btn-cancel-product:hover {
+    background-color: #3a3a3a;
+  }
+  

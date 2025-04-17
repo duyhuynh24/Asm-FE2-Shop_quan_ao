@@ -16,7 +16,7 @@ const FeaturedProducts = () => {
 
     const getFeaturedProducts = async () => {
         try {
-            const res = await axios.get(`${Constants.DOAMIN_API}/product/list`);
+            const res = await axios.get(`${Constants.DOMAIN_API}/product/list`);
             const data = res.data.data || [];
             const featured = data.filter(function (product) {
                 return product.featured === "featured";

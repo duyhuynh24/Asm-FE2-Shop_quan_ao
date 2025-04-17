@@ -21,7 +21,7 @@ const ProductDetail = () => {
     ]);
 
     useEffect(() => {
-        axios.get(`${Constants.DOAMIN_API}/product/${id}`)
+        axios.get(`${Constants.DOMAIN_API}/product/${id}`)
             .then(function (res) {
                 setProduct(res.data.data);
             })
@@ -29,7 +29,7 @@ const ProductDetail = () => {
                 console.error("❌ Lỗi tải sản phẩm:", err);
             });
 
-        axios.get(`${Constants.DOAMIN_API}/variant/${id}`)
+        axios.get(`${Constants.DOMAIN_API}/variant/${id}`)
             .then(function (res) {
                 const list = Array.isArray(res.data.data) ? res.data.data : [];
                 setVariants(list);
@@ -63,7 +63,7 @@ const ProductDetail = () => {
             return;
         }
 
-        axios.post(`${Constants.DOAMIN_API}/cart/add`, {
+        axios.post(`${Constants.DOMAIN_API}/cart/add`, {
             variant_id: selectedVariant.id,
             quantity: quantity
         })

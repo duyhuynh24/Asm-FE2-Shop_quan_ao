@@ -1,19 +1,54 @@
-import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import Cookies from "js-cookie";
 import HeaderAdmin from "../../layout/header";
 import "./edit-category.css";
+import constant from "../../../../../Constants.jsx";
 
 const EditCategory = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log("Cập nhật danh mục:", data);
+    // 🟢 Fetch dữ liệu category khi mở trang
+    useEffect(() => {
+        const fetchCategory = async () => {
+            try {
+                const token = Cookies.get(constant.COOKIE_TOKEN);
+                const res = await axios.get(`${constant.DOMAIN_API}/category/${id}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                reset(res.data.data); // ⚡ Đổ dữ liệu vào form
+            } catch (error) {
+                console.error("Lỗi lấy thông tin danh mục:", error);
+                alert("Không thể tải danh mục");
+            }
+        };
+
+        fetchCategory();
+    }, [id, reset]);
+
+    // 🟡 Gửi cập nhật danh mục
+    const onSubmit = async (data) => {
+        try {
+            const token = Cookies.get(constant.COOKIE_TOKEN);
+            await axios.put(`${constant.DOMAIN_API}/category/${id}`, data, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            alert("Cập nhật danh mục thành công!");
+            navigate("/admin/categories");
+        } catch (error) {
+            console.error("Lỗi khi cập nhật danh mục:", error);
+            alert("Có lỗi xảy ra khi cập nhật danh mục");
+        }
     };
 
     return (
@@ -30,34 +65,21 @@ const EditCategory = () => {
                                 <input
                                     type="text"
                                     id="name"
-                                    name="name"
                                     {...register("name", {
-                                        required: { value: true, message: "Tên loại là bắt buộc" },
+                                        required: "Tên loại là bắt buộc",
                                     })}
                                 />
                                 {errors.name && <p className="error">{errors.name.message}</p>}
                             </div>
 
-                            {/* Mô tả */}
-                            <div className="form-group">
-                                <label htmlFor="description">Mô Tả</label>
-                                <textarea
-                                    id="description"
-                                    name="description"
-                                    {...register("description", {
-                                        required: { value: true, message: "Mô tả là bắt buộc" },
-                                    })}
-                                />
-                                {errors.description && <p className="error">{errors.description.message}</p>}
-                            </div>
+ 
 
                             {/* Trạng thái */}
                             <div className="form-group">
                                 <label>Trạng Thái</label>
                                 <select
-                                    name="status"
                                     {...register("status", {
-                                        required: { value: true, message: "Trạng thái là bắt buộc" },
+                                        required: "Trạng thái là bắt buộc",
                                     })}
                                 >
                                     <option value="">-- Chọn trạng thái --</option>
@@ -68,10 +90,7 @@ const EditCategory = () => {
                             </div>
 
                             <div className="form-buttons">
-                                {/* Nút Lưu */}
                                 <button type="submit" className="save-btn">Lưu</button>
-
-                                {/* Nút Hủy */}
                                 <Link to="/admin/categories" className="cancel-btn">Hủy</Link>
                             </div>
                         </form>

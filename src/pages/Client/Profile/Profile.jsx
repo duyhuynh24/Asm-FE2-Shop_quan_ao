@@ -92,7 +92,7 @@ export default function ProfilePage() {
                 avatar: avatarUrl,
             };
 
-            const res = await axios.put(`${Constants.DOAMIN_API}/user/update-user/${localUser.id}`, payload, {
+            const res = await axios.put(`${Constants.DOMAIN_API}/user/update-user/${localUser.id}`, payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -17,7 +17,7 @@ const FeaturedProducts = () => {
 
     const getProducts = async () => {
         try {
-            const res = await axios.get(`${Constants.DOAMIN_API}/product/list`);
+            const res = await axios.get(`${Constants.DOMAIN_API}/product/list`);
             const formatted = (res.data.data || []).map(function (product) {
                 return {
                     id: product.id,

@@ -33,7 +33,7 @@ const ProductSidebar = () => {
 
   const getCategories = async function () {
     try {
-      const res = await axios.get(Constants.DOAMIN_API + "/category/list");
+      const res = await axios.get(Constants.DOMAIN_API + "/category/list");
       setCategories(res.data.data || []);
     } catch (e) {
       console.error("Lỗi lấy danh mục:", e);
@@ -42,7 +42,7 @@ const ProductSidebar = () => {
 
   const getTargetGroups = async function () {
     try {
-      const res = await axios.get(Constants.DOAMIN_API + "/target-group/list");
+      const res = await axios.get(Constants.DOMAIN_API + "/target-group/list");
       setTargetGroups(res.data.data || []);
     } catch (e) {
       console.error("Lỗi lấy nhóm thời trang:", e);
@@ -51,7 +51,7 @@ const ProductSidebar = () => {
 
   const getProducts = async function () {
     try {
-      const res = await axios.get(Constants.DOAMIN_API + "/product/list");
+      const res = await axios.get(Constants.DOMAIN_API + "/product/list");
       let data = res.data.data || [];
 
       data = data.filter(function (p) {

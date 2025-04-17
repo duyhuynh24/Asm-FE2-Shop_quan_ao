@@ -1,10 +1,25 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import HeaderAdmin from "../layout/header";
 import "./comment.css";
+import constant from "../../../../Constants";
 
 const Comment = () => {
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${constant.DOMAIN_API}/review/list`)
+            .then(res => {
+                setComments(res.data.data);
+            })
+            .catch(err => {
+                console.error("Lỗi khi lấy danh sách bình luận:", err);
+            });
+    }, []);
+
     return (
         <>
-        <HeaderAdmin />
+            <HeaderAdmin />
             <div className="comment-container">
                 <div className="comment-wrapper">
                     <div className="comment-box">
@@ -15,29 +30,21 @@ const Comment = () => {
                                     <tr>
                                         <th>ID</th>
                                         <th>Tên Người Dùng</th>
+                                        <th>Sản Phẩm</th>
                                         <th>Bình Luận</th>
-                                        <th>Trạng Thái</th>
+                                        <th>Sao</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Sản phẩm rất tốt!</td>
-                                        <td>Hiển thị</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Trần Thị B</td>
-                                        <td>Giao hàng nhanh, đóng gói cẩn thận.</td>
-                                        <td>Ẩn</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Lê Văn C</td>
-                                        <td>Chất lượng vải đẹp, sẽ ủng hộ tiếp.</td>
-                                        <td>Hiển thị</td>
-                                    </tr>
+                                    {comments.map((comment) => (
+                                        <tr key={comment.id}>
+                                            <td>{comment.id}</td>
+                                            <td>{comment.user?.name || 'Ẩn danh'}</td>
+                                            <td>{comment.product?.name || 'Không rõ'}</td>
+                                            <td>{comment.comment}</td>
+                                            <td>{comment.rating} ⭐</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -45,7 +52,6 @@ const Comment = () => {
                 </div>
             </div>
         </>
-
     );
 };
 

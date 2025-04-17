@@ -17,8 +17,7 @@ const HeaderAdmin = () => {
         <Link to="/admin/orders" className="nav-link text-white">Đơn Hàng</Link>
         <Link to="/admin/users" className="nav-link text-white">Người Dùng</Link>
         <Link to="/admin/comments" className="nav-link text-white">Bình Luận</Link>
-        <Link to="/admin/signin" className="nav-link text-white">Đăng Nhập</Link>
-        <Link to="/admin/signup" className="nav-link text-white">Đăng Kí</Link>
+
       </nav>
     </div>
   );

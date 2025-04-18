@@ -3,17 +3,19 @@ import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import logo from "../../../assets/img/logo.webp";
+import axios from "axios";
+import Constants from "../../../Constants";
 import "./header.css";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [cookies, setCookie, removeCookie] = useCookies(["token", "role"]);
+  const [cookies, , removeCookie] = useCookies(["token", "role"]);
   const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
-  // Cập nhật khi location thay đổi (VD sau login)
   useEffect(() => {
     const token = cookies.token;
     const storedUser = localStorage.getItem("user");
@@ -33,6 +35,30 @@ const Header = () => {
       setUser(null);
     }
   }, [location, cookies.token]);
+
+  useEffect(() => {
+    async function fetchCartCount() {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (!cookies.token || !storedUser?.id) return;
+
+        const res = await axios.get(`${Constants.DOAMIN_API}/cart/user/${storedUser.id}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        });
+
+        if (res.data?.data && Array.isArray(res.data.data)) {
+          const totalCount = res.data.data.reduce((sum, item) => sum + item.quantity, 0);
+          setCartCount(totalCount);
+        }
+      } catch (err) {
+        console.error("Lỗi lấy số lượng giỏ hàng:", err);
+      }
+    }
+
+    fetchCartCount();
+  }, [cookies.token, location]);
 
   const handleLogout = () => {
     removeCookie("token");
@@ -84,14 +110,14 @@ const Header = () => {
             }}
           >
             <FaShoppingCart />
-            <span className="cart-count">3</span>
+            <span className="cart-count">{cartCount}</span>
           </Link>
 
           {isAuth && user ? (
             <div className="user-menu">
               <button className="user-btn">
                 <img
-                  src={user?.avatar ||  require("../../../assets/img/user-4.jpg")}
+                  src={user?.avatar || require("../../../assets/img/user-4.jpg")}
                   alt="avatar"
                   className="user-avatar"
                 />

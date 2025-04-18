@@ -69,6 +69,7 @@ const AddProduct = () => {
 
     return (
         <>
+        <>
             <HeaderAdmin />
             <div className="add-product-container">
                 <div className="add-product-box">

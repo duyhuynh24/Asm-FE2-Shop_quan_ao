@@ -47,7 +47,25 @@ const AddCategory = () => {
                         <div className="category-title">
                             <h2>Thêm Loại Sản Phẩm</h2>
                         </div>
+        <>
+            <HeaderAdmin />
+            <div className="category-wrapper">
+                <div className="category-content">
+                    <div className="category-box">
+                        <div className="category-title">
+                            <h2>Thêm Loại Sản Phẩm</h2>
+                        </div>
 
+                        <form className="category-input-form" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="input-group">
+                                <label htmlFor="name">Tên loại</label>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    {...register("name", { required: "Tên loại là bắt buộc" })}
+                                />
+                                {errors.name && <p className="error">{errors.name.message}</p>}
+                            </div>
                         <form className="category-input-form" onSubmit={handleSubmit(onSubmit)}>
                             <div className="input-group">
                                 <label htmlFor="name">Tên loại</label>

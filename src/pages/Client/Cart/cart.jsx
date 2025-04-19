@@ -16,7 +16,7 @@ function Cart() {
                 const user = JSON.parse(localStorage.getItem("user"));
                 if (!user?.id) return;
 
-                const res = await axios.get(`${Constants.DOAMIN_API}/cart/user/${user.id}`, {
+                const res = await axios.get(`${Constants.DOMAIN_API}/cart/user/${user.id}`, {
                     headers: { Authorization: `Bearer ${cookies.token}` }
                 });
 

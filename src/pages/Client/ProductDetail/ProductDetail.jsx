@@ -58,28 +58,6 @@ const ProductDetail = () => {
     }, [selectedSize, selectedColor, variants]);
 
     const handleAddToCart = async () => {
-        if (!selectedVariant) {
-            alert("❗ Vui lòng chọn kích thước và màu sắc!");
-            return;
-        }
-
-        if (quantity <= 0) {
-            alert("❗ Số lượng không hợp lệ!");
-            return;
-        }
-        axios.post(`${Constants.DOMAIN_API}/cart/add`, {
-            variant_id: selectedVariant.id,
-            quantity: quantity
-        })
-            .then(function () {
-                alert("✅ Đã thêm vào giỏ hàng!");
-            })
-            .catch(function (err) {
-                console.error("❌ Lỗi thêm giỏ hàng:", err);
-                alert("Không thể thêm vào giỏ hàng.");
-            });
-    }
-
         const storedUser = localStorage.getItem("user");
         if (!storedUser) {
             alert("Bạn cần đăng nhập trước khi thêm vào giỏ hàng.");
@@ -93,7 +71,7 @@ const ProductDetail = () => {
         }
 
         try {
-            await axios.post(`${Constants.DOAMIN_API}/cart/add`, {
+            await axios.post(`${Constants.DOMAIN_API}/cart/add`, {
                 variant_id: selectedVariant.id,
                 quantity: quantity
             }, {

@@ -42,7 +42,7 @@ const Header = () => {
         const storedUser = JSON.parse(localStorage.getItem("user"));
         if (!cookies.token || !storedUser?.id) return;
 
-        const res = await axios.get(`${Constants.DOAMIN_API}/cart/user/${storedUser.id}`, {
+        const res = await axios.get(`${Constants.DOMAIN_API}/cart/user/${storedUser.id}`, {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
           },

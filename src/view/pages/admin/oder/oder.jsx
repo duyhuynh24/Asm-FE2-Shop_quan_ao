@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderAdmin from "../layout/header"; // Giả sử HeaderAdmin là phần header của trang quản trị
-import "./oder.css"; // Giả sử bạn đã có file CSS này
+import "./order.css"; // Giả sử bạn đã có file CSS này
 import constant from "../../../../Constants"; // Đảm bảo rằng `constant` chứa các thông tin như API base URL và cookie token
 
 // Lấy token từ cookie

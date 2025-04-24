@@ -20,16 +20,16 @@ const Dashboard = () => {
       return;
     }
 
-    const fetchCount = async (endpoint, setStateFn, label) => {
+    const fetchCount = async (path, setFn, label) => {
       try {
-        const response = await axios.get(`${constant.DOMAIN_API}${endpoint}`, {
+        const res = await axios.get(`${constant.DOMAIN_API}${path}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setStateFn(response.data.count);
-      } catch (error) {
-        console.error(`Lỗi khi lấy ${label}:`, error);
+        setFn(res.data.count);
+      } catch (err) {
+        console.error(`Lỗi khi lấy ${label}:`, err);
       }
     };
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
           {[
             { icon: "fa-box", label: "Số Lượng Đơn Hàng", value: orderCount },
             { icon: "fa-cogs", label: "Số Lượng Sản Phẩm", value: productCount },
-            { icon: "fa-comments", label: "Số Lượng Bình Luận", value: commentCount },
+            { icon: "fa-comments", label: "Số Lượng Đánh Giá", value: commentCount },
             { icon: "fa-users", label: "Số Lượng Người Dùng", value: userCount },
           ].map((stat, index) => (
             <div key={index} className="stat-card">

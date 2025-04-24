@@ -10,7 +10,7 @@ import HeaderAdmin from "../../layout/header";
 const AddProduct = () => {
     const navigate = useNavigate();
     const [image, setImage] = useState(null);
-    const [categories, setCategories] = useState([]); // ✅ thêm state lưu danh mục
+    const [categories, setCategories] = useState([]); // Thêm state lưu danh mục
 
     const {
         register,
@@ -18,13 +18,17 @@ const AddProduct = () => {
         formState: { errors },
     } = useForm();
 
-    // ✅ Gọi API để lấy danh mục
+    // Gọi API để lấy danh mục và lọc danh mục có trạng thái "active"
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const res = await axios.get(`${constant.DOMAIN_API}/category/list`);
                 console.log("👉 Dữ liệu danh mục trả về:", res.data);
-                setCategories(res.data.data); // ✅ Sửa tại đây!
+
+                // Lọc danh mục chỉ lấy danh mục có trạng thái "active"
+                const activeCategories = res.data.data.filter(category => category.status === 'active');
+                setCategories(activeCategories); // Cập nhật danh sách danh mục active
+
             } catch (error) {
                 console.error("❌ Lỗi khi lấy danh mục:", error);
             }
@@ -42,7 +46,7 @@ const AddProduct = () => {
             formData.append("price", data.price);
             formData.append("sale_price", data.sale_price || 0);
             formData.append("stock", data.stock || 0);
-            formData.append("category_id", data.category_id); // ✅ danh mục từ người dùng chọn
+            formData.append("category_id", data.category_id); // Danh mục từ người dùng chọn
             formData.append("brand_id", data.brand_id || 1);
             formData.append("target_group_id", data.target_group_id || 1);
 
@@ -68,7 +72,6 @@ const AddProduct = () => {
     };
 
     return (
-        <>
         <>
             <HeaderAdmin />
             <div className="add-product-container">
@@ -128,8 +131,6 @@ const AddProduct = () => {
                                 ))}
                         </select>
                         {errors.category_id && <p className="error">{errors.category_id.message}</p>}
-
-                       
 
                         {/* Nút thao tác */}
                         <div className="add-product-actions">

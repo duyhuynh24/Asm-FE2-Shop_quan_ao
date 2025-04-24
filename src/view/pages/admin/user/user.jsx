@@ -87,7 +87,6 @@ const User = () => {
                 <th>Tên</th>
                 <th>Số Điện Thoại</th>
                 <th>Email</th>
-                <th>Quyền</th>
                 <th>Hành Động</th>
               </tr>
             </thead>
@@ -103,7 +102,6 @@ const User = () => {
                     <td>{user.name}</td>
                     <td>{user.phone}</td>
                     <td>{user.email}</td>
-                    <td>{user.role}</td>
                     <td>
                       <button
                         className="btn btn-danger btn-sm"

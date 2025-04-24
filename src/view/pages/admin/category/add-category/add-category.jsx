@@ -47,7 +47,6 @@ const AddCategory = () => {
                         <div className="category-title">
                             <h2>Thêm Loại Sản Phẩm</h2>
                         </div>
-
                         <form className="category-input-form" onSubmit={handleSubmit(onSubmit)}>
                             <div className="input-group">
                                 <label htmlFor="name">Tên loại</label>

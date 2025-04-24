@@ -7,16 +7,16 @@ import HeaderAdmin from "../layout/header";
 import constant from '../../../../Constants';
 
 const Category = () => {
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([]); 
+    const [searchTerm, setSearchTerm] = useState(""); 
 
+    // Fetch categories from the API
     const fetchCategories = () => {
         axios.get(`${constant.DOMAIN_API}/category/list`)
             .then(res => {
                 console.log("Dữ liệu danh mục từ API:", res.data.data);
-                
-                // Kiểm tra nếu có dữ liệu trả về
                 if (res.data && res.data.data) {
-                    setCategories(res.data.data);  // Cập nhật danh sách danh mục
+                    setCategories(res.data.data);  
                 }
             })
             .catch(err => {
@@ -24,10 +24,27 @@ const Category = () => {
             });
     };
 
-    useEffect(() => {
-        fetchCategories();
-    }, []);
+    // Handle search action
+    const handleSearch = () => {
+        if (searchTerm.trim() === "") {
+            fetchCategories();  
+            return;
+        }
 
+        // Gọi API tìm kiếm danh mục
+        axios.get(`${constant.DOMAIN_API}/category/search?searchTerm=${searchTerm}`)
+            .then(res => {
+                if (res.data && res.data.data) {
+                    setCategories(res.data.data);  
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi khi tìm kiếm danh mục:", err);
+                alert("Không tìm thấy danh mục nào");
+            });
+    };
+
+    // Handle delete category
     const handleDelete = async (id) => {
         const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa danh mục này?");
         if (!confirmDelete) return;
@@ -40,12 +57,17 @@ const Category = () => {
                 },
             });
             alert("Xóa danh mục thành công");
-            fetchCategories(); // Cập nhật lại danh sách sau khi xóa
+            fetchCategories(); // Refresh category list after deletion
         } catch (error) {
             console.error("Lỗi khi xóa danh mục:", error);
             alert("Xóa danh mục thất bại");
         }
     };
+
+    // Fetch categories on component mount
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     return (
         <>
@@ -57,6 +79,8 @@ const Category = () => {
                             <h2>Danh Sách Loại Sản Phẩm</h2>
                             <Link to="/admin/AddCategory" className="category-add-btn">+ Thêm Loại</Link>
                         </div>
+
+
                         <div className="category-table-wrapper">
                             <table className="category-table">
                                 <thead>
@@ -74,7 +98,6 @@ const Category = () => {
                                                 <td>{category.id}</td>
                                                 <td>{category.name}</td>
                                                 <td>
-                                                    {/* Kiểm tra trạng thái và hiển thị đúng */}
                                                     <span className={category.status === 'active' ? "category-badge-success" : "category-badge-danger"}>
                                                         {category.status === 'active' ? "Đang kinh doanh" : "Ngừng kinh doanh"}
                                                     </span>

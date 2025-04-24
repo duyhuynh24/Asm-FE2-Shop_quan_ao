@@ -1,184 +1,141 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Constants from '../../../Constants';
+import { useCookies } from 'react-cookie';
 import './ShippingAddressManager.css';
 
 const ShippingAddressManager = () => {
   const navigate = useNavigate();
+  const [cookies] = useCookies(['token']);
   const [address, setAddress] = useState({
-    fullName: '',
-    addressLine: '',
-    district: '',
-    ward: '',
-    city: '',
+    recipient_name: '',
+    address: '',
     phone: '',
+    note: ''
   });
   const [errors, setErrors] = useState({});
   const [addresses, setAddresses] = useState([]);
 
   useEffect(() => {
-    const savedAddresses = localStorage.getItem('shippingAddresses');
-    if (savedAddresses) {
-      setAddresses(JSON.parse(savedAddresses));
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user?.id || !cookies.token) return;
+    fetchUserAddresses(user.id, cookies.token);
+  }, [cookies.token]);
+
+  const fetchUserAddresses = async (userId, token) => {
+    try {
+      const res = await axios.get(`${Constants.DOMAIN_API}/address/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setAddresses(res.data.data);
+    } catch (err) {
+      console.error('Lỗi lấy danh sách địa chỉ:', err);
     }
-  }, []);
+  };
 
   const handleChange = (e) => {
     setAddress({ ...address, [e.target.name]: e.target.value });
   };
 
   const validate = () => {
-    const newErrors = {};
-    if (!address.fullName.trim()) newErrors.fullName = 'Họ và Tên không được để trống.';
-    if (!address.addressLine.trim()) newErrors.addressLine = 'Địa chỉ không được để trống.';
-    if (!address.district.trim()) newErrors.district = 'Quận/Huyện không được để trống.';
-    if (!address.ward.trim()) newErrors.ward = 'Phường/Xã không được để trống.';
-    if (!address.city.trim()) newErrors.city = 'Thành phố không được để trống.';
+    const errs = {};
+    if (!address.recipient_name.trim()) errs.recipient_name = 'Vui lòng nhập tên người nhận';
+    if (!address.address.trim()) errs.address = 'Vui lòng nhập địa chỉ';
     if (!address.phone.trim()) {
-      newErrors.phone = 'Số điện thoại không được để trống.';
-    } else if (!/^\d{10,11}$/.test(address.phone.trim())) {
-      newErrors.phone = 'Số điện thoại không hợp lệ (10-11 số).';
+      errs.phone = 'Vui lòng nhập số điện thoại';
+    } else if (!/^[0-9]{10,11}$/.test(address.phone.trim())) {
+      errs.phone = 'Số điện thoại không hợp lệ';
     }
-    return newErrors;
+    return errs;
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-    // Nếu không có lỗi, lưu địa chỉ
-    const newAddresses = [...addresses, address];
-    setAddresses(newAddresses);
-    localStorage.setItem('shippingAddresses', JSON.stringify(newAddresses));
-    setAddress({
-      fullName: '',
-      addressLine: '',
-      district: '',
-      ward: '',
-      city: '',
-      phone: '',
-    });
-    setErrors({});
-    alert('Địa chỉ đã được lưu!');
-    // Sau khi lưu thành công, chuyển hướng về trang Payment
-    navigate('/payment');
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user?.id || !cookies.token) {
+        alert('Vui lòng đăng nhập để lưu địa chỉ.');
+        navigate('/login');
+        return;
+      }
+      const payload = { ...address, user_id: user.id };
+      await axios.post(`${Constants.DOMAIN_API}/address/add`, payload, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`
+        }
+      });
+      alert('Lưu địa chỉ thành công!');
+      navigate(-1);
+    } catch (err) {
+      console.error('Lỗi lưu địa chỉ:', err);
+      alert(err.response?.data?.message || 'Không thể lưu địa chỉ.');
+    }
   };
 
-  const handleBackToPayment = () => {
-    navigate('/payment');
+  const renderAddressList = () => {
+    if (addresses.length === 0) {
+      return <p className="text-muted">Chưa có địa chỉ nào được lưu</p>;
+    }
+
+    return (
+      <ul className="list-group">
+        {addresses.map(renderAddressItem)}
+      </ul>
+    );
+  };
+
+  const renderAddressItem = (addr, idx) => {
+    return (
+      <li key={idx} className="list-group-item">
+        <strong> Người nhận: {addr.recipient_name}</strong><br />
+        Địa chỉ: {addr.address}<br />
+        Số Điện Thoại: {addr.phone}<br />
+        <small>Ghi chú: {addr.note}</small>
+      </li>
+    );
   };
 
   return (
-    <div className="shipping-address-manager-container container mt-4">
-      <h2 className="shipping-address-manager-title mb-3">Quản Lý Địa Chỉ Giao Hàng</h2>
-
-      <div className="shipping-address-manager-form card p-3 mb-4">
-        <div className="form-group mb-2">
-          <label htmlFor="fullName">Họ và Tên</label>
-          <input
-            type="text"
-            className="form-control shipping-address-manager-input"
-            id="fullName"
-            name="fullName"
-            placeholder="Nhập họ và tên"
-            value={address.fullName}
-            onChange={handleChange}
-          />
-          {errors.fullName && <small className="text-danger">{errors.fullName}</small>}
+    <main className="container shipping-address mt-5 mb-5">
+      <div className="card p-4">
+        <h2 className="text-center mb-3">Thêm Địa Chỉ Giao Hàng</h2>
+        <div className="mb-3">
+          <label className="form-label">Tên người nhận</label>
+          <input className="form-control" name="recipient_name" value={address.recipient_name} onChange={handleChange} />
+          {errors.recipient_name && <div className="text-danger mt-1">{errors.recipient_name}</div>}
         </div>
-        <div className="form-group mb-2">
-          <label htmlFor="addressLine">Địa chỉ</label>
-          <input
-            type="text"
-            className="form-control shipping-address-manager-input"
-            id="addressLine"
-            name="addressLine"
-            placeholder="Nhập địa chỉ"
-            value={address.addressLine}
-            onChange={handleChange}
-          />
-          {errors.addressLine && <small className="text-danger">{errors.addressLine}</small>}
+        <div className="mb-3">
+          <label className="form-label">Số điện thoại</label>
+          <input className="form-control" name="phone" value={address.phone} onChange={handleChange} />
+          {errors.phone && <div className="text-danger mt-1">{errors.phone}</div>}
         </div>
-        <div className="form-group mb-2">
-          <label htmlFor="district">Quận/Huyện</label>
-          <input
-            type="text"
-            className="form-control shipping-address-manager-input"
-            id="district"
-            name="district"
-            placeholder="Nhập quận/huyện"
-            value={address.district}
-            onChange={handleChange}
-          />
-          {errors.district && <small className="text-danger">{errors.district}</small>}
+        <div className="mb-3">
+          <label className="form-label">Địa chỉ</label>
+          <input className="form-control" name="address" value={address.address} onChange={handleChange} />
+          {errors.address && <div className="text-danger mt-1">{errors.address}</div>}
         </div>
-        <div className="form-group mb-2">
-          <label htmlFor="ward">Phường/Xã</label>
-          <input
-            type="text"
-            className="form-control shipping-address-manager-input"
-            id="ward"
-            name="ward"
-            placeholder="Nhập phường/xã"
-            value={address.ward}
-            onChange={handleChange}
-          />
-          {errors.ward && <small className="text-danger">{errors.ward}</small>}
+        <div className="mb-3">
+          <label className="form-label">Ghi chú</label>
+          <textarea className="form-control" name="note" value={address.note} onChange={handleChange} rows={3} />
         </div>
-        <div className="form-group mb-2">
-          <label htmlFor="city">Thành phố</label>
-          <input
-            type="text"
-            className="form-control shipping-address-manager-input"
-            id="city"
-            name="city"
-            placeholder="Nhập thành phố"
-            value={address.city}
-            onChange={handleChange}
-          />
-          {errors.city && <small className="text-danger">{errors.city}</small>}
-        </div>
-        <div className="form-group mb-2">
-          <label htmlFor="phone">Số điện thoại</label>
-          <input
-            type="text"
-            className="form-control shipping-address-manager-input"
-            id="phone"
-            name="phone"
-            placeholder="Nhập số điện thoại"
-            value={address.phone}
-            onChange={handleChange}
-          />
-          {errors.phone && <small className="text-danger">{errors.phone}</small>}
-        </div>
-        <div className="d-flex justify-content-between mt-2">
-          <button className="button-save" onClick={handleSave}>
-            Lưu Địa Chỉ
-          </button>
-          <button className="button-back" onClick={handleBackToPayment}>
-            Trở về trang Payment
-          </button>
+        <div className="d-flex justify-content-between">
+          <button className="btn btn-primary" onClick={handleSave}>Lưu địa chỉ</button>
+          <button className="btn btn-secondary" onClick={() => navigate(-1)}>Quay lại</button>
         </div>
       </div>
 
-      <div className="shipping-address-manager-saved card p-3 mb-4">
-        <h4 className="shipping-address-manager-saved-title mb-3">Địa chỉ đã lưu</h4>
-        {addresses.length > 0 ? (
-          <ul className="list-group shipping-address-manager-list">
-            {addresses.map((addr, index) => (
-              <li key={index} className="list-group-item shipping-address-manager-list-item">
-                <strong>{addr.fullName}</strong>
-                <p>{addr.addressLine}, {addr.district}, {addr.ward}, {addr.city}</p>
-                <p>{addr.phone}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="shipping-address-manager-no-address">Chưa có địa chỉ được lưu.</p>
-        )}
+      <div className="card p-4 mt-4">
+        <h4 className="mb-3">Danh sách địa chỉ đã lưu</h4>
+        {renderAddressList()}
       </div>
-    </div>
+    </main>
   );
 };
 

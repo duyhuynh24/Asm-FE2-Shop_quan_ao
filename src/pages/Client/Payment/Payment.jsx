@@ -1,56 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import Constants from '../../../Constants';
 import './Payment.css';
 
 const Payment = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [cookies] = useCookies(['token']);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
-
-  // Trạng thái cho checkbox phương thức thanh toán
+  const [products, setProducts] = useState([]);
   const [onlinePayment, setOnlinePayment] = useState(false);
   const [codPayment, setCodPayment] = useState(false);
 
-  useEffect(() => {
-    const savedAddresses = localStorage.getItem('shippingAddresses');
-    if (savedAddresses) {
-      setAddresses(JSON.parse(savedAddresses));
-    }
-  }, []);
-
-  const goToAddressManager = () => {
-    navigate('/shipping-address-manager');
-  };
-
-  // Giả sử danh sách sản phẩm trong giỏ hàng
-  const products = [
-    {
-      id: 1,
-      name: 'Áo Thun Nam',
-      size : 'L',
-      price: 200000,
-      coler: 'Trắng',
-      quantity: 2,
-      image: require('../../../assets/img/aothun.webp'),
-    },
-    {
-      id: 2,
-      name: 'Quần Jean Nữ',
-      size : 'M',
-      coler : 'Nâu',
-      price: 350000,
-      quantity: 1,
-      image: require('../../../assets/img/nu.webp'),
-    },
-  ];
-
-  // Tính toán chi tiết thanh toán
   const subTotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
   const shippingFee = 30000;
   const discount = 0;
   const total = subTotal + shippingFee - discount;
 
-  const handleConfirmPayment = () => {
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user?.id || !cookies.token) return;
+
+    fetchUserAddresses(user.id, cookies.token);
+
+    if (location.state?.selectedItems) {
+      setProducts(location.state.selectedItems);
+    }
+  }, [cookies.token, location.state]);
+
+  const fetchUserAddresses = async (userId, token) => {
+    try {
+      const res = await axios.get(`${Constants.DOMAIN_API}/address/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setAddresses(res.data.data);
+    } catch (err) {
+      console.error(" Lỗi lấy địa chỉ giao hàng:", err);
+    }
+  };
+
+  const goToAddressManager = () => {
+    navigate('/shipping-address-manager');
+  };
+
+  const handleConfirmPayment = async () => {
     if (selectedAddressIndex === null) {
       alert('Vui lòng chọn địa chỉ nhận hàng!');
       return;
@@ -63,145 +59,135 @@ const Payment = () => {
       alert('Vui lòng chỉ chọn một phương thức thanh toán!');
       return;
     }
-    // Tạo dữ liệu thanh toán chung
+
     const selectedAddress = addresses[selectedAddressIndex];
-    const paymentData = {
-      shippingInfo: selectedAddress,
-      products,
-      subTotal,
-      shippingFee,
-      discount,
-      total,
-      paymentMethods: {
-        onlinePayment,
-        codPayment,
-      },
+    const user = JSON.parse(localStorage.getItem('user'));
+    const paymentMethod = onlinePayment ? 'Momo' : 'COD';
+
+    const payload = {
+      user_id: user.id,
+      address_id: selectedAddress.id,
+      note: '',
+      amount: total,
+      payment_method: paymentMethod,
+      products: products.map(p => ({
+        variant_id: p.variant_id,
+        quantity: p.quantity,
+        price: p.price
+      }))
     };
-    console.log('Payment Data:', paymentData);
-    // Xử lý theo phương thức thanh toán đã chọn
-    if (onlinePayment) {
-      // Nếu chọn thanh toán online: chuyển trang
-      navigate('/payment-detail', { state: paymentData });
-    } else if (codPayment) {
-      // Nếu chọn COD: hiển thị thông báo thanh toán thành công (hoặc xử lý theo yêu cầu)
-      alert('Thanh toán COD thành công!');
-      // Bạn có thể chuyển hướng về trang đơn hàng thành công nếu cần:
-      // navigate('/order-success', { state: paymentData });
+
+    try {
+      const res = await axios.post(`${Constants.DOMAIN_API}/order/add`, payload, {
+        headers: { Authorization: `Bearer ${cookies.token}` }
+      });
+
+      await Promise.all(
+        products.map(p =>
+          axios.delete(`${Constants.DOMAIN_API}/cart/${p.cart_id}`, {
+            headers: { Authorization: `Bearer ${cookies.token}` }
+          })
+        )
+      );
+      alert('Đặt hàng thành công!');
+      navigate('/orders');
+    } catch (err) {
+      console.error('Lỗi đặt hàng:', err);
+      alert(err.response?.data?.message || 'Đặt hàng thất bại');
     }
   };
 
+  const renderProductRows = () =>
+    products.map((product) => (
+      <tr key={product.id}>
+        <td><img src={product.image} alt={product.name} width="50" height="50" /></td>
+        <td>{product.name}</td>
+        <td>{product.size}</td>
+        <td>{product.color}</td>
+        <td>{product.quantity}</td>
+        <td>{Number(product.price).toLocaleString("vi-VN", { maximumFractionDigits: 0 })} VND</td>
+      </tr>
+    ));
+
+  const renderSummaryRows = () => {
+    const summaryItems = [
+      ['Tổng tiền sản phẩm:', subTotal],
+      ['Phí vận chuyển:', shippingFee],
+      ['Giảm giá (Voucher):', discount],
+      ['Tổng số tiền:', total],
+    ];
+
+    return summaryItems.map(([label, value], i) => (
+      <div key={i} className={`payment-summary-item ${label.includes('Tổng số tiền') ? 'total' : ''}`}>
+        <span>{label}</span>
+        <span>{value.toLocaleString()} VND</span>
+      </div>
+    ));
+  };
+
+  const renderAddressOptions = () =>
+    addresses.map((addr, index) => (
+      <option key={index} value={index}>
+        {addr.recipient_name} - {addr.phone} - {addr.address}
+      </option>
+    ));
+
   return (
     <main className='container'>
-      <div className="payment-page">
-        <div className="payment-left">
-          <h2 className="payment-left-title">Chọn Địa Chỉ Nhận Hàng</h2>
-          {addresses.length === 0 ? (
-            <div className="no-address text-center mb-3">
-              <p>Chưa có địa chỉ được lưu.</p>
-              <button className="btn btn-primary" onClick={goToAddressManager}>
-                Nhập Địa Chỉ Giao Hàng
-              </button>
-            </div>
-          ) : (
-            <>
-              <div className="address-selection">
-                {addresses.map((addr, index) => (
-                  <div
-                    key={index}
-                    className={`address-item ${selectedAddressIndex === index ? 'selected' : ''}`}
-                    onClick={() => setSelectedAddressIndex(index)}
-                  >
-                    <p><strong>{addr.fullName}</strong></p>
-                    <p>
-                      {addr.addressLine}, {addr.district}, {addr.ward}, {addr.city}
-                    </p>
-                    <p>{addr.phone}</p>
-                  </div>
-                ))}
-              </div>
-              <button className="edit-address btn-purple " onClick={goToAddressManager}>
-                Chỉnh Sửa/Thêm Địa Chỉ
-              </button>
-            </>
-          )}
+      <div className="payment-container">
+        <div className="payment-column-left">
+          <h2 className="payment-title">Chọn Địa Chỉ Nhận Hàng</h2>
+          <select
+            className="payment-select form-control mb-3"
+            value={selectedAddressIndex ?? ''}
+            onChange={(e) => setSelectedAddressIndex(Number(e.target.value))}
+          >
+            <option value="">-- Chọn địa chỉ --</option>
+            {renderAddressOptions()}
+          </select>
+          <button className="payment-btn-edit mb-4" onClick={goToAddressManager}>
+            Chỉnh Sửa/Thêm Địa Chỉ
+          </button>
 
-          <h2 className="payment-left-title mt-4">Sản Phẩm Cần Thanh Toán</h2>
-          <div className="product-list">
-            {products.map((product) => (
-              <div className="product-item" key={product.id}>
-                <img src={product.image} alt={product.name} />
-                <div className="product-info">
-                  <p className="product-name">{product.name}</p>
-                  <p className="product-size">{product.size}</p>
-                  <p className="product-coler">{product.coler}</p>
-                  <p className="product-price">{product.price.toLocaleString()} VND</p>
-                  <p className="product-quantity">Số lượng: {product.quantity}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 className="payment-title">Sản Phẩm Cần Thanh Toán</h2>
+          <table className="payment-table">
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Size</th>
+                <th>Màu</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              {renderProductRows()}
+            </tbody>
+          </table>
         </div>
 
-        <div className="payment-right">
-          <h2 className="payment-right-title">Chi Tiết Thanh Toán</h2>
-          <div className="order-summary">
-            <div className="summary-item">
-              <span>Tổng tiền sản phẩm:</span>
-              <span>{subTotal.toLocaleString()} VND</span>
-            </div>
-            <div className="summary-item">
-              <span>Phí vận chuyển:</span>
-              <span>{shippingFee.toLocaleString()} VND</span>
-            </div>
-            <div className="summary-item">
-              <span>Giảm giá (Voucher):</span>
-              <span>{discount.toLocaleString()} VND</span>
-            </div>
-            <div className="summary-item total">
-              <span>Tổng số tiền:</span>
-              <span>{total.toLocaleString()} VND</span>
-            </div>
+        <div className="payment-column-right">
+          <h2 className="payment-title">Chi Tiết Thanh Toán</h2>
+          <div className="payment-summary">
+            {renderSummaryRows()}
           </div>
 
-          <div className="payment-method-options mt-3">
-            <h3 className="payment-method-title text-center">Chọn Phương Thức Thanh Toán</h3>
+          <div className="payment-method">
+            <h3 className="payment-method-title">Chọn Phương Thức Thanh Toán</h3>
             <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="onlinePayment"
-                checked={onlinePayment}
-                disabled={codPayment}
-                onChange={(e) => setOnlinePayment(e.target.checked)}
-              />
-              <label className="form-check-label" htmlFor="onlinePayment">
-                Thanh toán Online
-              </label>
-              <small className="form-text text-muted">
-                Chọn phương thức thanh toán online để thanh toán nhanh qua thẻ tín dụng hoặc ví điện tử.
-              </small>
+              <input className="form-check-input" type="checkbox" id="onlinePayment" checked={onlinePayment} disabled={codPayment} onChange={(e) => setOnlinePayment(e.target.checked)} />
+              <label className="form-check-label" htmlFor="onlinePayment">Thanh toán Online</label>
+              <small>Chọn thanh toán nhanh qua thẻ tín dụng hoặc ví điện tử.</small>
             </div>
             <div className="form-check mt-2">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="codPayment"
-                checked={codPayment}
-                disabled={onlinePayment}
-                onChange={(e) => setCodPayment(e.target.checked)}
-              />
-              <label className="form-check-label" htmlFor="codPayment">
-                Thanh toán khi nhận hàng (COD)
-              </label>
-              <small className="form-text text-muted">
-                Chọn COD nếu bạn muốn thanh toán trực tiếp khi nhận hàng.
-              </small>
+              <input className="form-check-input" type="checkbox" id="codPayment" checked={codPayment} disabled={onlinePayment} onChange={(e) => setCodPayment(e.target.checked)} />
+              <label className="form-check-label" htmlFor="codPayment">Thanh toán khi nhận hàng (COD)</label>
+              <small>Trả tiền mặt khi nhận hàng tại địa chỉ đã chọn.</small>
             </div>
           </div>
 
-          <button className="confirm-payment-btn mt-3" onClick={handleConfirmPayment}>
-            Xác Nhận Thanh Toán
-          </button>
+          <button className="payment-btn-confirm" onClick={handleConfirmPayment}>Xác Nhận Thanh Toán</button>
         </div>
       </div>
     </main>

@@ -11,8 +11,10 @@ import Cart from "./pages/Client/Cart/cart";
 import ProductDetail from "./pages/Client/ProductDetail/ProductDetail";
 import { Outlet } from "react-router";
 import Payment from "./pages/Client/Payment/Payment"
+import OrderUser from "./pages/Client/Order/Order";
 import ShippingAddressManager from "./pages/Client/ShippingAddress.Manager/ShippingAddressManager"
 import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
+import OrderDetailUser from "./pages/Client/OrderDetails/OrderDetails";
 
 // Import các trang
 import Dashboard from "./view/pages/admin/home/home";
@@ -51,7 +53,9 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="payment" element={<Payment />} /> {/* Định nghĩa route cho /delivery */}
+          <Route path="payment" element={<Payment />} />
+          <Route path="orders" element={<OrderUser />} />
+          <Route path="order-detail/:id" element={<OrderDetailUser />} />
           <Route path="shipping-address-manager" element={<ShippingAddressManager />} />
         </Route>
         {/* Admin Layout */}

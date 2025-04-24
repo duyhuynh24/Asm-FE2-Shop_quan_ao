@@ -16,7 +16,8 @@ const Header = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
-  useEffect(() => {
+  // ✅ Hàm kiểm tra đăng nhập và lấy user
+  const checkAuthentication = () => {
     const token = cookies.token;
     const storedUser = localStorage.getItem("user");
 
@@ -27,44 +28,47 @@ const Header = () => {
         setIsAuth(true);
       } catch (error) {
         console.error("Lỗi parse user:", error);
-        setIsAuth(false);
         setUser(null);
+        setIsAuth(false);
       }
     } else {
-      setIsAuth(false);
       setUser(null);
+      setIsAuth(false);
     }
+  };
+
+  // ✅ Hàm lấy số lượng sản phẩm trong giỏ hàng
+  const fetchCartCount = async () => {
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (!cookies.token || !storedUser?.id) return;
+
+      const res = await axios.get(`${Constants.DOMAIN_API}/cart/user/${storedUser.id}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      });
+
+      if (res.data?.data && Array.isArray(res.data.data)) {
+        const totalCount = res.data.data.reduce((sum, item) => sum + item.quantity, 0);
+        setCartCount(totalCount);
+      }
+    } catch (err) {
+      console.error("Lỗi lấy số lượng giỏ hàng:", err);
+    }
+  };
+
+  // ✅ Gọi 2 hàm chính khi location/token thay đổi
+  useEffect(() => {
+    checkAuthentication();
+    fetchCartCount();
   }, [location, cookies.token]);
 
-  useEffect(() => {
-    async function fetchCartCount() {
-      try {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (!cookies.token || !storedUser?.id) return;
-
-        const res = await axios.get(`${Constants.DOMAIN_API}/cart/user/${storedUser.id}`, {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-        });
-
-        if (res.data?.data && Array.isArray(res.data.data)) {
-          const totalCount = res.data.data.reduce((sum, item) => sum + item.quantity, 0);
-          setCartCount(totalCount);
-        }
-      } catch (err) {
-        console.error("Lỗi lấy số lượng giỏ hàng:", err);
-      }
-    }
-
-    fetchCartCount();
-  }, [cookies.token, location]);
-
+  // ✅ Đăng xuất
   const handleLogout = () => {
     removeCookie("token");
     removeCookie("role");
     localStorage.removeItem("user");
-
     setUser(null);
     setIsAuth(false);
     navigate("/login");
@@ -86,7 +90,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Điều hướng */}
+        {/* Menu điều hướng */}
         <nav className="nav">
           <ul className="nav-links">
             <li><Link to="/">Trang chủ</Link></li>
